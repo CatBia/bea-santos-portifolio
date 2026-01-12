@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minha Carona App MVP - Technical Presentation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #10b981;
+            --secondary: #059669;
+            --accent: #34d399;
+            --dark: #1f2937;
+            --gray: #6b7280;
+            --light-gray: #f3f4f6;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--dark);
+            line-height: 1.6;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: var(--gray);
+        }
+
+        .section {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid var(--primary);
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .tech-card {
+            background: var(--light-gray);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .tech-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.2);
+        }
+
+        .tech-card h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .tech-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .tech-card li {
+            padding: 0.5rem 0;
+            color: var(--gray);
+            display: flex;
+            align-items: center;
+        }
+
+        .tech-card li::before {
+            content: "▸";
+            color: var(--primary);
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        .spec-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .spec-item {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.1));
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .spec-item h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .spec-item p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        .architecture-diagram {
+            background: var(--light-gray);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-top: 1.5rem;
+            overflow-x: auto;
+        }
+
+        .aws-architecture {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            min-width: 800px;
+        }
+
+        .aws-layer {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            padding: 1rem;
+            background: var(--white);
+            border-radius: 8px;
+            border: 2px solid var(--primary);
+            flex-wrap: wrap;
+        }
+
+        .aws-service {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-align: center;
+            min-width: 150px;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .aws-arrow {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: start;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--light-gray);
+            border-radius: 8px;
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        .feature-content h4 {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .feature-content p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .email-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--white);
+            border-radius: 50px;
+            display: inline-block;
+            border: 2px solid var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .email-link:hover {
+            background: var(--primary);
+            color: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4);
+        }
+
+        .dynamodb-table {
+            background: var(--light-gray);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-top: 1rem;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        th {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .section {
+                padding: 1.5rem;
+            }
+
+            .tech-grid,
+            .spec-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .aws-architecture {
+                min-width: 100%;
+            }
+
+            .aws-layer {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="../../projects.html" class="back-link">← Back to Projects</a>
+
+        <div class="header">
+            <h1>Minha Carona App MVP</h1>
+            <p>Serverless Ride-Sharing Platform for Condominiums</p>
+            <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(16, 185, 129, 0.1); border-radius: 10px; border-left: 4px solid var(--primary);">
+                <p style="color: var(--dark); font-weight: 500; margin-bottom: 0.5rem;">
+                    🔒 <strong>Private Project</strong>
+                </p>
+                <p style="color: var(--gray); font-size: 0.95rem;">
+                    This project is private. For access or inquiries, please contact: 
+                    <a href="mailto:beasantosdev+1@gmail.com" style="color: var(--primary); text-decoration: none; font-weight: 600; border-bottom: 2px solid var(--primary);">beasantosdev+1@gmail.com</a>
+                </p>
+            </div>
+        </div>
+
+        <!-- Technology Stack -->
+        <div class="section">
+            <h2 class="section-title">Technology Stack</h2>
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <h3>Frontend</h3>
+                    <ul>
+                        <li>React 18</li>
+                        <li>Vite 5.0+</li>
+                        <li>Tailwind CSS</li>
+                        <li>React Router</li>
+                        <li>Axios</li>
+                    </ul>
+                </div>
+
+                <div class="tech-card">
+                    <h3>Backend</h3>
+                    <ul>
+                        <li>FastAPI (Python 3.11+)</li>
+                        <li>Mangum (Lambda Adapter)</li>
+                        <li>Pydantic</li>
+                        <li>Uvicorn</li>
+                        <li>Python-JOSE</li>
+                    </ul>
+                </div>
+
+                <div class="tech-card">
+                    <h3>Database</h3>
+                    <ul>
+                        <li>DynamoDB</li>
+                        <li>Single Table Design</li>
+                        <li>Global Secondary Index (GSI1)</li>
+                        <li>Pay-per-Request Billing</li>
+                    </ul>
+                </div>
+
+                <div class="tech-card">
+                    <h3>Messaging & Events</h3>
+                    <ul>
+                        <li>AWS SQS (Reservations Queue)</li>
+                        <li>AWS SNS (Notifications)</li>
+                        <li>Lambda Workers</li>
+                        <li>Event-Driven Architecture</li>
+                    </ul>
+                </div>
+
+                <div class="tech-card">
+                    <h3>Communication</h3>
+                    <ul>
+                        <li>REST API (Public)</li>
+                        <li>gRPC (Internal)</li>
+                        <li>Protocol Buffers</li>
+                        <li>HTTP/2 (gRPC)</li>
+                    </ul>
+                </div>
+
+                <div class="tech-card">
+                    <h3>Infrastructure</h3>
+                    <ul>
+                        <li>Serverless Framework</li>
+                        <li>AWS Lambda</li>
+                        <li>API Gateway</li>
+                        <li>AWS Cognito (Production)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Technical Specifications -->
+        <div class="section">
+            <h2 class="section-title">Technical Specifications</h2>
+            <div class="spec-grid">
+                <div class="spec-item">
+                    <h4>Architecture Pattern</h4>
+                    <p>Serverless with Event-Driven Design</p>
+                </div>
+                <div class="spec-item">
+                    <h4>Frontend Framework</h4>
+                    <p>React 18 with Vite</p>
+                </div>
+                <div class="spec-item">
+                    <h4>Backend Language</h4>
+                    <p>Python 3.11+</p>
+                </div>
+                <div class="spec-item">
+                    <h4>Database</h4>
+                    <p>DynamoDB (NoSQL Single Table)</p>
+                </div>
+                <div class="spec-item">
+                    <h4>Deployment</h4>
+                    <p>Serverless Framework → AWS Lambda</p>
+                </div>
+                <div class="spec-item">
+                    <h4>API Style</h4>
+                    <p>RESTful APIs + gRPC (Internal)</p>
+                </div>
+                <div class="spec-item">
+                    <h4>Authentication</h4>
+                    <p>AWS Cognito (Mock for Dev)</p>
+                </div>
+                <div class="spec-item">
+                    <h4>Cost Model</h4>
+                    <p>Pay-per-Request (Zero when idle)</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Features -->
+        <div class="section">
+            <h2 class="section-title">Key Features</h2>
+            <div class="feature-list">
+                <div class="feature-item">
+                    <div class="feature-icon">👥</div>
+                    <div class="feature-content">
+                        <h4>Three User Roles</h4>
+                        <p>Morador (Resident), Motorista (Driver), and Admin dashboards with role-based access control</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🚗</div>
+                    <div class="feature-content">
+                        <h4>Ride Management</h4>
+                        <p>Create, list, and manage caronas (rides) with real-time availability tracking</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📋</div>
+                    <div class="feature-content">
+                        <h4>Reservation System</h4>
+                        <p>Atomic reservation processing using SQS to prevent race conditions and duplicate bookings</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">⚡</div>
+                    <div class="feature-content">
+                        <h4>gRPC Integration</h4>
+                        <p>High-performance internal communication for critical operations with Protocol Buffers, streaming, and 5-10ms latency</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🔔</div>
+                    <div class="feature-content">
+                        <h4>Real-time Notifications</h4>
+                        <p>SNS-based notification system for reservations, confirmations, and alerts</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">💰</div>
+                    <div class="feature-content">
+                        <h4>Cost-Effective</h4>
+                        <p>Zero cost when idle, pay only for actual usage - perfect for MVP and small condominiums</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📊</div>
+                    <div class="feature-content">
+                        <h4>Admin Dashboard</h4>
+                        <p>Comprehensive admin panel for managing all caronas and users in the condominium</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🔍</div>
+                    <div class="feature-content">
+                        <h4>Smart Matching</h4>
+                        <p>Intelligent matching system to connect residents with available rides</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DynamoDB Schema -->
+        <div class="section">
+            <h2 class="section-title">DynamoDB Single Table Design</h2>
+            <p style="color: var(--gray); margin-bottom: 1.5rem;">
+                The application uses a single DynamoDB table with a well-designed key structure to support all access patterns efficiently.
+            </p>
+            
+            <div class="dynamodb-table">
+                <h3 style="color: var(--primary); margin-bottom: 1rem; font-size: 1.3rem;">Table Structure</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>PK (Partition Key)</th>
+                            <th>SK (Sort Key)</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>USER#&lt;id&gt;</code></td>
+                            <td><code>METADATA</code></td>
+                            <td>User registration (Resident/Driver)</td>
+                        </tr>
+                        <tr>
+                            <td><code>CARONA#&lt;id&gt;</code></td>
+                            <td><code>DETALHES</code></td>
+                            <td>Ride details and metadata</td>
+                        </tr>
+                        <tr>
+                            <td><code>CARONA#&lt;id&gt;</code></td>
+                            <td><code>RESERVA#&lt;user_id&gt;</code></td>
+                            <td>Reservation linking passenger to ride</td>
+                        </tr>
+                        <tr>
+                            <td><code>CONDOMINIO#&lt;id&gt;</code></td>
+                            <td><code>CARONA#&lt;data&gt;#&lt;id&gt;</code></td>
+                            <td>Index for admin to list all rides</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="dynamodb-table" style="margin-top: 2rem;">
+                <h3 style="color: var(--primary); margin-bottom: 1rem; font-size: 1.3rem;">Global Secondary Index (GSI1)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>GSI1PK</th>
+                            <th>GSI1SK</th>
+                            <th>Use Case</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>STATUS#&lt;status&gt;</code></td>
+                            <td><code>DATA_HORA</code> (ISO format)</td>
+                            <td>List all open rides for today, sorted by time</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p style="color: var(--gray); margin-top: 1rem; font-size: 0.95rem;">
+                    <strong>Example:</strong> <code>GSI1PK = STATUS#ABERTA</code> returns all open rides ordered by date/time for instant listing.
+                </p>
+            </div>
+        </div>
+
+        <!-- gRPC Deep Dive -->
+        <div class="section">
+            <h2 class="section-title">gRPC: High-Performance Internal Communication</h2>
+            <p style="color: var(--gray); margin-bottom: 2rem; font-size: 1.1rem;">
+                The application implements a <strong>hybrid architecture</strong> using gRPC for internal microservice communication 
+                where performance and low latency are critical, while maintaining REST APIs for public-facing endpoints.
+            </p>
+
+            <div class="tech-grid" style="margin-bottom: 2rem;">
+                <div class="tech-card">
+                    <h3>Why gRPC?</h3>
+                    <ul>
+                        <li><strong>Performance:</strong> 5-10ms latency vs 50-100ms REST</li>
+                        <li><strong>Protocol Buffers:</strong> Binary serialization (smaller payloads)</li>
+                        <li><strong>HTTP/2:</strong> Multiplexing and header compression</li>
+                        <li><strong>Streaming:</strong> Bidirectional real-time updates</li>
+                        <li><strong>Type Safety:</strong> Strongly typed contracts</li>
+                    </ul>
+                </div>
+                <div class="tech-card">
+                    <h3>When to Use gRPC</h3>
+                    <ul>
+                        <li>✅ Internal microservice communication</li>
+                        <li>✅ High-frequency operations (checking availability)</li>
+                        <li>✅ Low-latency requirements</li>
+                        <li>✅ Streaming large datasets</li>
+                        <li>✅ Synchronous critical operations</li>
+                    </ul>
+                </div>
+                <div class="tech-card">
+                    <h3>When NOT to Use</h3>
+                    <ul>
+                        <li>❌ Public APIs (frontend/mobile)</li>
+                        <li>❌ External service integration</li>
+                        <li>❌ Simple CRUD operations</li>
+                        <li>❌ Browser-based clients</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 style="font-size: 1.5rem; font-weight: 600; margin: 2rem 0 1rem; color: var(--dark);">gRPC Services</h3>
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <h3>CaronaService</h3>
+                    <ul>
+                        <li><code>GetCarona</code> - Fast ride lookup</li>
+                        <li><code>ListCaronasDisponiveis</code> - Streaming available rides</li>
+                        <li><code>CreateCarona</code> - Internal ride creation</li>
+                        <li><code>CheckVagas</code> - Quick availability check (5-10ms)</li>
+                        <li><code>StreamCaronasUpdates</code> - Real-time bidirectional updates</li>
+                    </ul>
+                </div>
+                <div class="tech-card">
+                    <h3>ReservaService</h3>
+                    <ul>
+                        <li><code>ProcessarReserva</code> - Synchronous reservation (50-200ms vs 1-5s SQS)</li>
+                        <li><code>GetReservas</code> - Stream reservations for a ride</li>
+                        <li><code>UpdateReservaStatus</code> - Fast status updates</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 style="font-size: 1.5rem; font-weight: 600; margin: 2rem 0 1rem; color: var(--dark);">Performance Comparison</h3>
+            <div class="dynamodb-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Operation</th>
+                            <th>REST API</th>
+                            <th>gRPC</th>
+                            <th>Improvement</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Check Availability</strong></td>
+                            <td>50-100ms</td>
+                            <td>5-10ms</td>
+                            <td><strong>10x faster</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Get Ride Details</strong></td>
+                            <td>50-100ms</td>
+                            <td>5-10ms</td>
+                            <td><strong>10x faster</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Process Reservation</strong></td>
+                            <td>1-5s (SQS async)</td>
+                            <td>50-200ms (sync)</td>
+                            <td><strong>10-100x faster</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>List Rides (100 items)</strong></td>
+                            <td>200-500ms</td>
+                            <td>50-100ms (streaming)</td>
+                            <td><strong>4-5x faster</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Payload Size</strong></td>
+                            <td>~2-5KB (JSON)</td>
+                            <td>~0.5-1KB (Protobuf)</td>
+                            <td><strong>50-80% smaller</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 style="font-size: 1.5rem; font-weight: 600; margin: 2rem 0 1rem; color: var(--dark);">Protocol Buffers Schema</h3>
+            <div style="background: var(--light-gray); padding: 1.5rem; border-radius: 12px; margin-top: 1rem; overflow-x: auto;">
+                <pre style="color: var(--dark); font-family: 'Courier New', monospace; font-size: 0.9rem; line-height: 1.6;"><code>syntax = "proto3";
+
+service CaronaService {
+  rpc GetCarona(GetCaronaRequest) returns (CaronaResponse);
+  rpc ListCaronasDisponiveis(ListCaronasRequest) returns (stream CaronaResponse);
+  rpc CheckVagas(CheckVagasRequest) returns (CheckVagasResponse);
+  rpc StreamCaronasUpdates(stream CaronaUpdateRequest) returns (stream CaronaUpdateResponse);
+}
+
+service ReservaService {
+  rpc ProcessarReserva(ProcessarReservaRequest) returns (ReservaResponse);
+  rpc GetReservas(GetReservasRequest) returns (stream ReservaResponse);
+}
+
+message CheckVagasResponse {
+  bool disponivel = 1;
+  int32 vagas_disponiveis = 2;
+  int32 vagas_totais = 3;
+}</code></pre>
+            </div>
+
+            <h3 style="font-size: 1.5rem; font-weight: 600; margin: 2rem 0 1rem; color: var(--dark);">Use Cases & Examples</h3>
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <h3>Case 1: Quick Availability Check</h3>
+                    <p style="color: var(--gray); margin-bottom: 1rem; font-size: 0.95rem;">
+                        Frontend needs to verify if seats are available before showing "Reserve" button.
+                    </p>
+                    <div style="background: #1e1e1e; padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+                        <pre style="color: #d4d4d4; font-size: 0.85rem; margin: 0;"><code># gRPC (5-10ms)
+client = CaronaGRPCClient()
+vagas = client.check_vagas("carona-123")
+if vagas.disponivel:
+    show_reserve_button()</code></pre>
+                    </div>
+                </div>
+                <div class="tech-card">
+                    <h3>Case 2: Synchronous Reservation</h3>
+                    <p style="color: var(--gray); margin-bottom: 1rem; font-size: 0.95rem;">
+                        Critical case requiring immediate response (can't wait for SQS processing).
+                    </p>
+                    <div style="background: #1e1e1e; padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+                        <pre style="color: #d4d4d4; font-size: 0.85rem; margin: 0;"><code># gRPC (50-200ms sync)
+reserva = reserva_client.processar_reserva(
+    carona_id="carona-123",
+    passageiro_id="user-456"
+)
+if reserva.sucesso:
+    show_confirmation()</code></pre>
+                    </div>
+                </div>
+                <div class="tech-card">
+                    <h3>Case 3: Streaming Rides</h3>
+                    <p style="color: var(--gray); margin-bottom: 1rem; font-size: 0.95rem;">
+                        Efficiently list many available rides with streaming for better performance.
+                    </p>
+                    <div style="background: #1e1e1e; padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+                        <pre style="color: #d4d4d4; font-size: 0.85rem; margin: 0;"><code># gRPC Streaming
+for carona in client.list_caronas_disponiveis():
+    render_ride_card(carona)
+    # Processes one at a time, more efficient</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="font-size: 1.5rem; font-weight: 600; margin: 2rem 0 1rem; color: var(--dark);">Hybrid Architecture</h3>
+            <div style="background: var(--light-gray); padding: 2rem; border-radius: 12px; margin-top: 1rem;">
+                <div style="font-family: 'Courier New', monospace; font-size: 0.95rem; line-height: 2; color: var(--dark);">
+                    <div style="margin-bottom: 1rem;"><strong>Frontend (React)</strong></div>
+                    <div style="margin-left: 2rem; margin-bottom: 1rem;">│ REST/HTTP</div>
+                    <div style="margin-left: 2rem; margin-bottom: 1rem;">↓</div>
+                    <div style="margin-bottom: 1rem;"><strong>API Gateway (FastAPI + Lambda)</strong></div>
+                    <div style="margin-left: 2rem; margin-bottom: 1rem;">├── REST ──► DynamoDB (Public APIs)</div>
+                    <div style="margin-left: 2rem; margin-bottom: 1rem;">├── gRPC ──► gRPC Service (Internal, High Performance)</div>
+                    <div style="margin-left: 2rem; margin-bottom: 1rem;">└── SQS ──► Worker Lambda (Async Processing)</div>
+                </div>
+            </div>
+
+            <div style="margin-top: 2rem; padding: 1.5rem; background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.1)); border-radius: 12px; border-left: 4px solid var(--primary);">
+                <h4 style="color: var(--primary); margin-bottom: 0.5rem; font-size: 1.2rem;">Key Benefits of gRPC in This Architecture</h4>
+                <ul style="color: var(--gray); line-height: 1.8; padding-left: 1.5rem;">
+                    <li><strong>Reduced Latency:</strong> 10x faster than REST for internal calls</li>
+                    <li><strong>Lower Bandwidth:</strong> Protocol Buffers reduce payload size by 50-80%</li>
+                    <li><strong>Better Scalability:</strong> HTTP/2 multiplexing handles more concurrent requests</li>
+                    <li><strong>Type Safety:</strong> Compile-time validation prevents runtime errors</li>
+                    <li><strong>Streaming Support:</strong> Real-time updates without polling</li>
+                    <li><strong>Language Agnostic:</strong> Works across Python, Go, Java, Node.js, etc.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Reservation Flow -->
+        <div class="section">
+            <h2 class="section-title">Reservation Flow (SQS Pattern)</h2>
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <h3>1. User Request</h3>
+                    <ul>
+                        <li>Resident clicks "Reserve" button</li>
+                        <li>Frontend sends request to API</li>
+                        <li>API validates request</li>
+                    </ul>
+                </div>
+                <div class="tech-card">
+                    <h3>2. Queue Message</h3>
+                    <ul>
+                        <li>API sends message to SQS</li>
+                        <li>Message contains: carona_id, passenger_id, driver_id</li>
+                        <li>Queue ensures sequential processing</li>
+                    </ul>
+                </div>
+                <div class="tech-card">
+                    <h3>3. Worker Processing</h3>
+                    <ul>
+                        <li>Lambda worker processes queue</li>
+                        <li>Atomically checks available seats</li>
+                        <li>Creates reservation or rejects</li>
+                    </ul>
+                </div>
+                <div class="tech-card">
+                    <h3>4. Notification</h3>
+                    <ul>
+                        <li>SNS sends confirmation</li>
+                        <li>Driver and passenger notified</li>
+                        <li>Status updated in DynamoDB</li>
+                    </ul>
+                </div>
+            </div>
+            <div style="margin-top: 2rem; padding: 1.5rem; background: var(--light-gray); border-radius: 12px; border-left: 4px solid var(--primary);">
+                <h4 style="color: var(--primary); margin-bottom: 0.5rem; font-size: 1.2rem;">Why SQS?</h4>
+                <p style="color: var(--gray);">
+                    SQS prevents race conditions when multiple users try to reserve the last available seat simultaneously. 
+                    The queue ensures atomic, sequential processing, eliminating duplicate reservations and maintaining data consistency.
+                </p>
+            </div>
+        </div>
+
+        <!-- AWS Architecture -->
+        <div class="section">
+            <h2 class="section-title">Minha Carona App MVP AWS Architecture</h2>
+            <div class="architecture-diagram">
+                <div class="aws-architecture">
+                    <!-- User Layer -->
+                    <div class="aws-layer">
+                        <div class="aws-service">Users<br/>(Residents/Drivers)</div>
+                    </div>
+                    <div class="aws-arrow">↓</div>
+
+                    <!-- Frontend Layer -->
+                    <div class="aws-layer">
+                        <div class="aws-service">CloudFront CDN</div>
+                        <div class="aws-service">S3<br/>(Static Hosting)</div>
+                    </div>
+                    <div class="aws-arrow">↓</div>
+
+                    <!-- API Layer -->
+                    <div class="aws-layer">
+                        <div class="aws-service">API Gateway</div>
+                    </div>
+                    <div class="aws-arrow">↓</div>
+
+                    <!-- Lambda Layer -->
+                    <div class="aws-layer">
+                        <div class="aws-service">Lambda<br/>(FastAPI API)</div>
+                        <div class="aws-service">Lambda<br/>(Reservation Worker)</div>
+                        <div class="aws-service">ECS Fargate<br/>(gRPC Service)</div>
+                    </div>
+                    <div class="aws-arrow">↓</div>
+
+                    <!-- Data & Messaging Layer -->
+                    <div class="aws-layer">
+                        <div class="aws-service">DynamoDB<br/>(Single Table)</div>
+                        <div class="aws-service">SQS<br/>(Reservations Queue)</div>
+                        <div class="aws-service">SNS<br/>(Notifications)</div>
+                    </div>
+                    <div class="aws-arrow">↓</div>
+
+                    <!-- Auth Layer -->
+                    <div class="aws-layer">
+                        <div class="aws-service">Cognito<br/>(Authentication)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 2rem;">
+                <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; color: var(--dark);">AWS Services Breakdown</h3>
+                <div class="tech-grid">
+                    <div class="tech-card">
+                        <h3>Compute</h3>
+                        <ul>
+                            <li><strong>Lambda:</strong> Serverless API and workers</li>
+                            <li><strong>ECS Fargate:</strong> gRPC service containers</li>
+                            <li><strong>API Gateway:</strong> REST API management</li>
+                            <li><strong>Auto Scaling:</strong> Automatic based on requests</li>
+                        </ul>
+                    </div>
+                    <div class="tech-card">
+                        <h3>gRPC Infrastructure</h3>
+                        <ul>
+                            <li><strong>ECS Fargate:</strong> Containerized gRPC servers</li>
+                            <li><strong>Application Load Balancer:</strong> gRPC load balancing</li>
+                            <li><strong>Service Discovery:</strong> Internal DNS for gRPC endpoints</li>
+                            <li><strong>TLS:</strong> Secure gRPC communication</li>
+                        </ul>
+                    </div>
+                    <div class="tech-card">
+                        <h3>Storage & Database</h3>
+                        <ul>
+                            <li><strong>DynamoDB:</strong> Single table design</li>
+                            <li><strong>S3:</strong> Static frontend hosting</li>
+                            <li><strong>CloudFront:</strong> Global CDN</li>
+                        </ul>
+                    </div>
+                    <div class="tech-card">
+                        <h3>Messaging</h3>
+                        <ul>
+                            <li><strong>SQS:</strong> Reservation queue processing</li>
+                            <li><strong>SNS:</strong> Notification delivery</li>
+                            <li><strong>Event-Driven:</strong> Decoupled architecture</li>
+                        </ul>
+                    </div>
+                    <div class="tech-card">
+                        <h3>Security</h3>
+                        <ul>
+                            <li><strong>Cognito:</strong> User authentication</li>
+                            <li><strong>IAM:</strong> Role-based access</li>
+                            <li><strong>API Gateway:</strong> Request validation</li>
+                        </ul>
+                    </div>
+                    <div class="tech-card">
+                        <h3>Networking</h3>
+                        <ul>
+                            <li><strong>CloudFront:</strong> Global CDN</li>
+                            <li><strong>Route 53:</strong> DNS management</li>
+                            <li><strong>VPC:</strong> Network isolation (optional)</li>
+                        </ul>
+                    </div>
+                    <div class="tech-card">
+                        <h3>Monitoring</h3>
+                        <ul>
+                            <li><strong>CloudWatch:</strong> Logs and metrics</li>
+                            <li><strong>X-Ray:</strong> Distributed tracing</li>
+                            <li><strong>CloudWatch Alarms:</strong> Alerting</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 2rem; padding: 1.5rem; background: var(--light-gray); border-radius: 12px;">
+                <h3 style="font-size: 1.3rem; font-weight: 600; margin-bottom: 1rem; color: var(--dark);">Architecture Benefits</h3>
+                <div class="spec-grid">
+                    <div class="spec-item">
+                        <h4>Cost Efficiency</h4>
+                        <p>Pay-per-request model means zero cost when idle</p>
+                    </div>
+                    <div class="spec-item">
+                        <h4>Scalability</h4>
+                        <p>Auto-scaling Lambda handles traffic spikes automatically</p>
+                    </div>
+                    <div class="spec-item">
+                        <h4>Reliability</h4>
+                        <p>SQS ensures atomic reservation processing</p>
+                    </div>
+                    <div class="spec-item">
+                        <h4>Performance</h4>
+                        <p>gRPC for internal communication (5-10ms latency)</p>
+                    </div>
+                    <div class="spec-item">
+                        <h4>Maintenance</h4>
+                        <p>Fully managed services reduce operational overhead</p>
+                    </div>
+                    <div class="spec-item">
+                        <h4>MVP Ready</h4>
+                        <p>Perfect for MVP with minimal infrastructure setup</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Deployment -->
+        <div class="section">
+            <h2 class="section-title">Deployment & Operations</h2>
+            <div class="spec-grid">
+                <div class="spec-item">
+                    <h4>Serverless Framework</h4>
+                    <p>Infrastructure as Code for easy deployment</p>
+                </div>
+                <div class="spec-item">
+                    <h4>Lambda Functions</h4>
+                    <p>API handler and SQS worker functions</p>
+                </div>
+                <div class="spec-item">
+                    <h4>Environment Variables</h4>
+                    <p>Automatically configured by Serverless Framework</p>
+                </div>
+                <div class="spec-item">
+                    <h4>CI/CD</h4>
+                    <p>GitHub Actions → Serverless deploy pipeline</p>
+                </div>
+                <div class="spec-item">
+                    <h4>Monitoring</h4>
+                    <p>CloudWatch for logs, metrics, and alarms</p>
+                </div>
+                <div class="spec-item">
+                    <h4>Cost Tracking</h4>
+                    <p>CloudWatch Billing for usage monitoring</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="section" style="text-align: center; background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.1));">
+            <p style="color: var(--dark); font-size: 1.1rem; margin-bottom: 1rem;">
+                <strong>🔒 Private Project</strong>
+            </p>
+            <p style="color: var(--gray); margin-bottom: 1rem;">
+                This project is private and not publicly available.
+            </p>
+            <p style="color: var(--dark);">
+                For access, inquiries, or collaboration opportunities, please contact:
+            </p>
+            <p style="margin-top: 0.5rem;">
+                <a href="mailto:beasantosdev+1@gmail.com" class="email-link">
+                    📧 beasantosdev+1@gmail.com
+                </a>
+            </p>
+            <p style="color: var(--gray); font-size: 0.9rem; margin-top: 1rem;">
+                &copy; 2024 Beatriz Santos. All rights reserved.
+            </p>
+        </div>
+    </div>
+</body>
+</html>
+
