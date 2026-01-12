@@ -14,6 +14,9 @@
     --card-bg: rgba(255, 255, 255, 0.9);
     --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     --shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.15);
+    --brutal-black: #000000;
+    --brutal-white: #ffffff;
+    --brutal-accent: #ff006e;
 }
 
 body {
@@ -176,6 +179,159 @@ body {
     line-height: 1.8;
 }
 
+/* Reverse Engineering Section - Brutalist Modern Style */
+.reverse-engineering-section {
+    background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+    padding: 4rem 2.5rem;
+    border-radius: 0;
+    margin: 4rem 0;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    border: 4px solid #ffffff;
+    position: relative;
+    overflow: hidden;
+    animation: fadeInUp 0.8s ease 0.8s both;
+}
+
+.reverse-engineering-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 2px,
+            rgba(255, 255, 255, 0.03) 2px,
+            rgba(255, 255, 255, 0.03) 4px
+        );
+    pointer-events: none;
+}
+
+.re-badge {
+    display: inline-block;
+    background: #ffffff;
+    color: #000000;
+    padding: 0.5rem 1.5rem;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    border: 3px solid #000000;
+    box-shadow: 8px 8px 0px #ffffff;
+    transform: rotate(-2deg);
+    animation: slideInLeft 0.6s ease 1s both;
+}
+
+.re-title {
+    font-size: 4rem;
+    font-weight: 900;
+    color: #ffffff;
+    margin-bottom: 2rem;
+    line-height: 1.1;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    text-shadow: 4px 4px 0px rgba(99, 102, 241, 0.5);
+    animation: fadeInUp 0.8s ease 1.2s both;
+}
+
+.re-description {
+    font-size: 1.25rem;
+    color: #e5e5e5;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    max-width: 900px;
+    animation: fadeInUp 0.8s ease 1.4s both;
+}
+
+.re-description strong {
+    color: #ffffff;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.re-principles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+    animation: fadeInUp 0.8s ease 1.6s both;
+}
+
+.principle-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    padding: 2rem;
+    border-radius: 0;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.principle-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--primary-color), var(--accent-color));
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.3s ease;
+}
+
+.principle-card:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: translateX(8px);
+    box-shadow: -8px 8px 0px rgba(99, 102, 241, 0.3);
+}
+
+.principle-card:hover::before {
+    transform: scaleY(1);
+}
+
+.principle-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    display: block;
+    filter: drop-shadow(2px 2px 0px rgba(99, 102, 241, 0.5));
+}
+
+.principle-card h3 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.principle-card p {
+    color: #b0b0b0;
+    line-height: 1.6;
+    font-size: 1rem;
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px) rotate(-2deg);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0) rotate(-2deg);
+    }
+}
+
 /* Projects Section */
 .projects-section {
     margin-bottom: 4rem;
@@ -199,6 +355,23 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.2);
     position: relative;
     overflow: hidden;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: revealOnScroll 0.6s ease forwards;
+}
+
+.project-card:nth-child(1) { animation-delay: 0.1s; }
+.project-card:nth-child(2) { animation-delay: 0.2s; }
+.project-card:nth-child(3) { animation-delay: 0.3s; }
+.project-card:nth-child(4) { animation-delay: 0.4s; }
+.project-card:nth-child(5) { animation-delay: 0.5s; }
+.project-card:nth-child(6) { animation-delay: 0.6s; }
+
+@keyframes revealOnScroll {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .project-card::before {
@@ -291,6 +464,50 @@ body {
     transform: translateY(-3px);
     box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
     background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+}
+
+/* Tech Marquee Section - Brutalist Style */
+.tech-marquee-section {
+    margin: 4rem 0;
+    overflow: hidden;
+    background: var(--brutal-black);
+    border-top: 4px solid var(--brutal-white);
+    border-bottom: 4px solid var(--brutal-white);
+    padding: 2rem 0;
+    position: relative;
+}
+
+.marquee-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.marquee-content {
+    display: flex;
+    white-space: nowrap;
+    animation: marquee 30s linear infinite;
+    will-change: transform;
+}
+
+.marquee-item {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--brutal-white);
+    padding: 0 3rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-shadow: 2px 2px 0px var(--primary-color);
+    flex-shrink: 0;
+}
+
+@keyframes marquee {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
 }
 
 /* Skills Section */
@@ -396,6 +613,20 @@ body {
     }
 }
 
+@media (max-width: 768px) {
+    .re-title {
+        font-size: 2.5rem;
+    }
+    
+    .re-description {
+        font-size: 1.1rem;
+    }
+    
+    .re-principles {
+        grid-template-columns: 1fr;
+    }
+}
+
 @media (max-width: 480px) {
     .name {
         font-size: 2rem;
@@ -409,6 +640,14 @@ body {
     .social-link {
         width: 200px;
         text-align: center;
+    }
+    
+    .re-title {
+        font-size: 2rem;
+    }
+    
+    .reverse-engineering-section {
+        padding: 2.5rem 1.5rem;
     }
 }
 
