@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manicure Booking App - Technical Presentation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #ec4899;
+            --secondary: #f472b6;
+            --accent: #fbbf24;
+            --dark: #1f2937;
+            --gray: #6b7280;
+            --light-gray: #f3f4f6;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--dark);
+            line-height: 1.6;
+            background: linear-gradient(135deg, #ec4899 0%, #f472b6 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: var(--gray);
+        }
+
+        .section {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid var(--primary);
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .tech-card {
+            background: var(--light-gray);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .tech-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(236, 72, 153, 0.2);
+        }
+
+        .tech-card h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .tech-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .tech-card li {
+            padding: 0.5rem 0;
+            color: var(--gray);
+            display: flex;
+            align-items: center;
+        }
+
+        .tech-card li::before {
+            content: "▸";
+            color: var(--primary);
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        .spec-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .spec-item {
+            background: linear-gradient(135deg, rgba(236, 72, 153, 0.1), rgba(251, 191, 36, 0.1));
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(236, 72, 153, 0.2);
+        }
+
+        .spec-item h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .spec-item p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        .architecture-diagram {
+            background: var(--light-gray);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-top: 1.5rem;
+            overflow-x: auto;
+        }
+
+        .aws-architecture {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            min-width: 800px;
+        }
+
+        .aws-layer {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            padding: 1rem;
+            background: var(--white);
+            border-radius: 8px;
+            border: 2px solid var(--primary);
+            flex-wrap: wrap;
+        }
+
+        .aws-service {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-align: center;
+            min-width: 150px;
+            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3);
+        }
+
+        .aws-arrow {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: start;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--light-gray);
+            border-radius: 8px;
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        .feature-content h4 {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .feature-content p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .email-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--white);
+            border-radius: 50px;
+            display: inline-block;
+            border: 2px solid var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .email-link:hover {
+            background: var(--primary);
+            color: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(236, 72, 153, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .section {
+                padding: 1.5rem;
+            }
+
+            .tech-grid,
+            .spec-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .aws-architecture {
+                min-width: 100%;
+            }
+
+            .aws-layer {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="../../projects.html" class="back-link">← Back to Projects</a>
+
+        <div class="header">
+            <h1>Manicure Booking App</h1>
+            <p>Modern Booking Application for Manicure Services</p>
+            <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(236, 72, 153, 0.1); border-radius: 10px; border-left: 4px solid var(--primary);">
+                <p style="color: var(--dark); font-weight: 500; margin-bottom: 0.5rem;">
+                    🔒 <strong>Private Project</strong>
+                </p>
+                <p style="color: var(--gray); font-size: 0.95rem;">
+                    This project is private. For access or inquiries, please contact: 
+                    <a href="mailto:beasantosdev+1@gmail.com" style="color: var(--primary); text-decoration: none; font-weight: 600; border-bottom: 2px solid var(--primary);">beasantosdev+1@gmail.com</a>
+                </p>
+            </div>
+        </div>
+
+        <!-- Technology Stack -->
+        <div class="section">
+            <h2 class="section-title">Technology Stack</h2>
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <h3>Frontend</h3>
+                    <ul>
+                        <li>React 18</li>
+                        <li>Vite 5.0+</li>
+                        <li>JavaScript (ES6+)</li>
+                        <li>Tailwind CSS</li>
+                        <li>HTML5</li>
+                    </ul>
+                </div>
+
+                <div class="tech-card">
+                    <h3>Build Tools</h3>
+                    <ul>
+                        <li>Vite (Build Tool)</li>
+                        <li>PostCSS</li>
+                        <li>Autoprefixer</li>
+                        <li>ESBuild</li>
+                    </ul>
+                </div>
+
+                <div class="tech-card">
+                    <h3>Styling</h3>
+                    <ul>
+                        <li>Tailwind CSS 3.4+</li>
+                        <li>Utility-first CSS</li>
+                        <li>Responsive Design</li>
+                        <li>Custom Components</li>
+                    </ul>
+                </div>
+
+                <div class="tech-card">
+                    <h3>Integration</h3>
+                    <ul>
+                        <li>WhatsApp API</li>
+                        <li>Form Validation</li>
+                        <li>Date/Time Selection</li>
+                        <li>Service Selection</li>
+                    </ul>
+                </div>
+
+                <div class="tech-card">
+                    <h3>DevOps & Infrastructure</h3>
+                    <ul>
+                        <li>Docker</li>
+                        <li>Docker Compose</li>
+                        <li>Nginx</li>
+                        <li>Makefile Automation</li>
+                        <li>GitHub Pages</li>
+                    </ul>
+                </div>
+
+                <div class="tech-card">
+                    <h3>Deployment</h3>
+                    <ul>
+                        <li>Static Site Hosting</li>
+                        <li>GitHub Pages</li>
+                        <li>Docker Containers</li>
+                        <li>Nginx Web Server</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Technical Specifications -->
+        <div class="section">
+            <h2 class="section-title">Technical Specifications</h2>
+            <div class="spec-grid">
+                <div class="spec-item">
+                    <h4>Architecture Pattern</h4>
+                    <p>Single Page Application (SPA)</p>
+                </div>
+                <div class="spec-item">
+                    <h4>Frontend Framework</h4>
+                    <p>React 18 with Vite</p>
+                </div>
+                <div class="spec-item">
+                    <h4>Build Tool</h4>
+                    <p>Vite 5.0+ (Fast Build Tool)</p>
+                </div>
+                <div class="spec-item">
+                    <h4>Styling</h4>
+                    <p>Tailwind CSS (Utility-first)</p>
+                </div>
+                <div class="spec-item">
+                    <h4>Containerization</h4>
+                    <p>Docker with Nginx</p>
+                </div>
+                <div class="spec-item">
+                    <h4>Deployment</h4>
+                    <p>Static Site / GitHub Pages</p>
+                </div>
+                <div class="spec-item">
+                    <h4>Language</h4>
+                    <p>JavaScript (ES6+)</p>
+                </div>
+                <div class="spec-item">
+                    <h4>Web Server</h4>
+                    <p>Nginx (Production)</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Features -->
+        <div class="section">
+            <h2 class="section-title">Key Features</h2>
+            <div class="feature-list">
+                <div class="feature-item">
+                    <div class="feature-icon">💅</div>
+                    <div class="feature-content">
+                        <h4>Service Selection</h4>
+                        <p>Choose from various manicure services with detailed descriptions</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📅</div>
+                    <div class="feature-content">
+                        <h4>Date & Time Selection</h4>
+                        <p>Intuitive calendar and time slot picker for booking appointments</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">💬</div>
+                    <div class="feature-content">
+                        <h4>WhatsApp Integration</h4>
+                        <p>Direct WhatsApp booking confirmation and communication</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">✅</div>
+                    <div class="feature-content">
+                        <h4>Form Validation</h4>
+                        <p>Client-side validation for all booking fields</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📱</div>
+                    <div class="feature-content">
+                        <h4>Responsive Design</h4>
+                        <p>Beautiful, fully responsive interface that works on all devices</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">⚡</div>
+                    <div class="feature-content">
+                        <h4>Fast Performance</h4>
+                        <p>Optimized with Vite for lightning-fast builds and hot module replacement</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🎨</div>
+                    <div class="feature-content">
+                        <h4>Modern UI</h4>
+                        <p>Beautiful, user-friendly interface with Tailwind CSS</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🚀</div>
+                    <div class="feature-content">
+                        <h4>Easy Deployment</h4>
+                        <p>Standalone HTML version for GitHub Pages deployment</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AWS Architecture -->
+        <div class="section">
+            <h2 class="section-title">Manicure Booking App AWS Architecture</h2>
+            <div class="architecture-diagram">
+                <div class="aws-architecture">
+                    <!-- User Layer -->
+                    <div class="aws-layer">
+                        <div class="aws-service">Users / Clients</div>
+                    </div>
+                    <div class="aws-arrow">↓</div>
+
+                    <!-- CDN & WAF Layer -->
+                    <div class="aws-layer">
+                        <div class="aws-service">CloudFront CDN</div>
+                        <div class="aws-service">AWS WAF</div>
+                    </div>
+                    <div class="aws-arrow">↓</div>
+
+                    <!-- Application Load Balancer -->
+                    <div class="aws-layer">
+                        <div class="aws-service">Application Load Balancer</div>
+                    </div>
+                    <div class="aws-arrow">↓</div>
+
+                    <!-- Compute Layer -->
+                    <div class="aws-layer">
+                        <div class="aws-service">S3 + CloudFront<br/>(Static Hosting)</div>
+                        <div class="aws-service">ECS Fargate<br/>(Nginx Container)</div>
+                        <div class="aws-service">ECS Fargate<br/>(Nginx Container)</div>
+                    </div>
+                    <div class="aws-arrow">↓</div>
+
+                    <!-- External Services Layer -->
+                    <div class="aws-layer">
+                        <div class="aws-service">WhatsApp API<br/>(External)</div>
+                    </div>
+                    <div class="aws-arrow">↓</div>
+
+                    <!-- Storage Layer -->
+                    <div class="aws-layer">
+                        <div class="aws-service">S3<br/>(Static Assets)</div>
+                        <div class="aws-service">CloudFront<br/>(CDN Cache)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 2rem;">
+                <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; color: var(--dark);">AWS Services Breakdown</h3>
+                <div class="tech-grid">
+                    <div class="tech-card">
+                        <h3>Hosting</h3>
+                        <ul>
+                            <li><strong>S3:</strong> Static website hosting</li>
+                            <li><strong>CloudFront:</strong> Global CDN distribution</li>
+                            <li><strong>Route 53:</strong> DNS management</li>
+                        </ul>
+                    </div>
+                    <div class="tech-card">
+                        <h3>Compute (Optional)</h3>
+                        <ul>
+                            <li><strong>ECS Fargate:</strong> Nginx containers (if needed)</li>
+                            <li><strong>Lambda:</strong> Serverless functions for form processing</li>
+                            <li><strong>API Gateway:</strong> API management</li>
+                        </ul>
+                    </div>
+                    <div class="tech-card">
+                        <h3>Networking</h3>
+                        <ul>
+                            <li><strong>CloudFront:</strong> Global CDN</li>
+                            <li><strong>Route 53:</strong> DNS management</li>
+                            <li><strong>AWS WAF:</strong> Web application firewall</li>
+                        </ul>
+                    </div>
+                    <div class="tech-card">
+                        <h3>Storage</h3>
+                        <ul>
+                            <li><strong>S3:</strong> Static assets and files</li>
+                            <li><strong>CloudFront:</strong> Content delivery</li>
+                        </ul>
+                    </div>
+                    <div class="tech-card">
+                        <h3>Security</h3>
+                        <ul>
+                            <li><strong>AWS WAF:</strong> Web application firewall</li>
+                            <li><strong>CloudFront:</strong> DDoS protection</li>
+                            <li><strong>ACM:</strong> SSL/TLS certificates</li>
+                        </ul>
+                    </div>
+                    <div class="tech-card">
+                        <h3>Monitoring</h3>
+                        <ul>
+                            <li><strong>CloudWatch:</strong> Metrics & monitoring</li>
+                            <li><strong>CloudWatch Logs:</strong> Access logs</li>
+                            <li><strong>CloudFront Analytics:</strong> Usage analytics</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 2rem; padding: 1.5rem; background: var(--light-gray); border-radius: 12px;">
+                <h3 style="font-size: 1.3rem; font-weight: 600; margin-bottom: 1rem; color: var(--dark);">Architecture Benefits</h3>
+                <div class="spec-grid">
+                    <div class="spec-item">
+                        <h4>Cost Efficiency</h4>
+                        <p>S3 static hosting is extremely cost-effective</p>
+                    </div>
+                    <div class="spec-item">
+                        <h4>Global Performance</h4>
+                        <p>CloudFront CDN ensures fast loading worldwide</p>
+                    </div>
+                    <div class="spec-item">
+                        <h4>Scalability</h4>
+                        <p>Automatic scaling with CloudFront edge locations</p>
+                    </div>
+                    <div class="spec-item">
+                        <h4>Security</h4>
+                        <p>WAF and CloudFront provide DDoS protection</p>
+                    </div>
+                    <div class="spec-item">
+                        <h4>High Availability</h4>
+                        <p>99.99% uptime with S3 and CloudFront</p>
+                    </div>
+                    <div class="spec-item">
+                        <h4>Easy Deployment</h4>
+                        <p>Simple S3 upload or GitHub Pages integration</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Deployment -->
+        <div class="section">
+            <h2 class="section-title">Deployment & Operations</h2>
+            <div class="spec-grid">
+                <div class="spec-item">
+                    <h4>Static Hosting</h4>
+                    <p>S3 static website hosting or GitHub Pages</p>
+                </div>
+                <div class="spec-item">
+                    <h4>CDN Distribution</h4>
+                    <p>CloudFront for global content delivery</p>
+                </div>
+                <div class="spec-item">
+                    <h4>Build Process</h4>
+                    <p>Vite builds optimized production bundle</p>
+                </div>
+                <div class="spec-item">
+                    <h4>CI/CD</h4>
+                    <p>GitHub Actions for automated deployment</p>
+                </div>
+                <div class="spec-item">
+                    <h4>SSL/TLS</h4>
+                    <p>ACM certificates for HTTPS</p>
+                </div>
+                <div class="spec-item">
+                    <h4>Monitoring</h4>
+                    <p>CloudWatch for metrics and CloudFront analytics</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="section" style="text-align: center; background: linear-gradient(135deg, rgba(236, 72, 153, 0.1), rgba(251, 191, 36, 0.1));">
+            <p style="color: var(--dark); font-size: 1.1rem; margin-bottom: 1rem;">
+                <strong>🔒 Private Project</strong>
+            </p>
+            <p style="color: var(--gray); margin-bottom: 1rem;">
+                This project is private and not publicly available.
+            </p>
+            <p style="color: var(--dark);">
+                For access, inquiries, or collaboration opportunities, please contact:
+            </p>
+            <p style="margin-top: 0.5rem;">
+                <a href="mailto:beasantosdev+1@gmail.com" class="email-link">
+                    📧 beasantosdev+1@gmail.com
+                </a>
+            </p>
+            <p style="color: var(--gray); font-size: 0.9rem; margin-top: 1rem;">
+                &copy; 2024 Beatriz Santos. All rights reserved.
+            </p>
+        </div>
+    </div>
+</body>
+</html>
+

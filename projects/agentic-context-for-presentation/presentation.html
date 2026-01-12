@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agentic Context for Presentation - Technical Presentation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --secondary: #8b5cf6;
+            --accent: #ec4899;
+            --dark: #1f2937;
+            --gray: #6b7280;
+            --light-gray: #f3f4f6;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--dark);
+            line-height: 1.6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: var(--gray);
+        }
+
+        .section {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid var(--primary);
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .tech-card {
+            background: var(--light-gray);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .tech-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.2);
+        }
+
+        .tech-card h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .tech-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .tech-card li {
+            padding: 0.5rem 0;
+            color: var(--gray);
+            display: flex;
+            align-items: center;
+        }
+
+        .tech-card li::before {
+            content: "▸";
+            color: var(--primary);
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        .spec-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .spec-item {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        .spec-item h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .spec-item p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        .architecture-diagram {
+            background: var(--light-gray);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-top: 1.5rem;
+            overflow-x: auto;
+        }
+
+        .aws-architecture {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            min-width: 800px;
+        }
+
+        .aws-layer {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            padding: 1rem;
+            background: var(--white);
+            border-radius: 8px;
+            border: 2px solid var(--primary);
+            flex-wrap: wrap;
+        }
+
+        .aws-service {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-align: center;
+            min-width: 150px;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .aws-arrow {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: start;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--light-gray);
+            border-radius: 8px;
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        .feature-content h4 {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .feature-content p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .email-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--white);
+            border-radius: 50px;
+            display: inline-block;
+            border: 2px solid var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .email-link:hover {
+            background: var(--primary);
+            color: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .section {
+                padding: 1.5rem;
+            }
+
+            .tech-grid,
+            .spec-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .aws-architecture {
+                min-width: 100%;
+            }
+
+            .aws-layer {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="../../projects.html" class="back-link">← Back to Projects</a>
+
+        <div class="header">
+            <h1>Agentic Context for Presentation</h1>
+            <p>AI-Powered GitHub Repository Analysis & Architecture Visualization</p>
+            <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(99, 102, 241, 0.1); border-radius: 10px; border-left: 4px solid var(--primary);">
+                <p style="color: var(--dark); font-weight: 500; margin-bottom: 0.5rem;">
+                    🔒 <strong>Private Project</strong>
+                </p>
+                <p style="color: var(--gray); font-size: 0.95rem;">
+                    This project is private. For access or inquiries, please contact: 
+                    <a href="mailto:beasantosdev+1@gmail.com" style="color: var(--primary); text-decoration: none; font-weight: 600; border-bottom: 2px solid var(--primary);">beasantosdev+1@gmail.com</a>
+                </p>
+            </div>
+        </div>
+
+        <!-- Technology Stack -->
+        <div class="section">
+            <h2 class="section-title">Technology Stack</h2>
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <h3>AI Framework</h3>
+                    <ul>
+                        <li>Google ADK (Agent Development Kit)</li>
+                        <li>Google Generative AI</li>
+                        <li>Gemini Models</li>
+                        <li>Python ADK</li>
+                    </ul>
+                </div>
+
+                <div class="tech-card">
+                    <h3>Programming Language</h3>
+                    <ul>
+                        <li>Python 3.10+</li>
+                        <li>Object-Oriented Design</li>
+                        <li>Async/Await Support</li>
+                    </ul>
+                </div>
+
+                <div class="tech-card">
+                    <h3>GitHub Integration</h3>
+                    <ul>
+                        <li>GitHub API</li>
+                        <li>Repository Analysis</li>
+                        <li>SSH URL Parsing</li>
+                        <li>Repository Metadata Extraction</li>
+                    </ul>
+                </div>
+
+                <div class="tech-card">
+                    <h3>Visualization</h3>
+                    <ul>
+                        <li>Diagrams Library</li>
+                        <li>Graphviz</li>
+                        <li>Matplotlib</li>
+                        <li>Pillow (Image Processing)</li>
+                    </ul>
+                </div>
+
+                <div class="tech-card">
+                    <h3>DevOps & Infrastructure</h3>
+                    <ul>
+                        <li>Docker</li>
+                        <li>Docker Compose</li>
+                        <li>Makefile Automation</li>
+                        <li>Environment Variables</li>
+                    </ul>
+                </div>
+
+                <div class="tech-card">
+                    <h3>Dependencies</h3>
+                    <ul>
+                        <li>google-adk >= 0.1.0</li>
+                        <li>python-dotenv >= 1.0.0</li>
+                        <li>requests >= 2.31.0</li>
+                        <li>google-generativeai >= 0.3.0</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Technical Specifications -->
+        <div class="section">
+            <h2 class="section-title">Technical Specifications</h2>
+            <div class="spec-grid">
+                <div class="spec-item">
+                    <h4>Architecture Pattern</h4>
+                    <p>Multi-Agent AI System with Specialized Agents</p>
+                </div>
+                <div class="spec-item">
+                    <h4>AI Framework</h4>
+                    <p>Google ADK (Agent Development Kit)</p>
+                </div>
+                <div class="spec-item">
+                    <h4>Language</h4>
+                    <p>Python 3.10+</p>
+                </div>
+                <div class="spec-item">
+                    <h4>Deployment</h4>
+                    <p>Docker Containers</p>
+                </div>
+                <div class="spec-item">
+                    <h4>Containerization</h4>
+                    <p>Docker with multi-stage builds</p>
+                </div>
+                <div class="spec-item">
+                    <h4>API Integration</h4>
+                    <p>GitHub REST API</p>
+                </div>
+                <div class="spec-item">
+                    <h4>Visualization</h4>
+                    <p>Diagrams, Graphviz, Matplotlib</p>
+                </div>
+                <div class="spec-item">
+                    <h4>Configuration</h4>
+                    <p>Environment Variables (.env)</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Features -->
+        <div class="section">
+            <h2 class="section-title">Key Features</h2>
+            <div class="feature-list">
+                <div class="feature-item">
+                    <div class="feature-icon">🔍</div>
+                    <div class="feature-content">
+                        <h4>GitHub Repository Analysis</h4>
+                        <p>Analyzes GitHub repositories to extract structure, technologies, and content</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📝</div>
+                    <div class="feature-content">
+                        <h4>Project Description Generation</h4>
+                        <p>Generates engaging 2048-character descriptions with practical usage tips</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🏗️</div>
+                    <div class="feature-content">
+                        <h4>Architecture Diagram Generation</h4>
+                        <p>Creates visual architecture diagrams and visualization prompts</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🔗</div>
+                    <div class="feature-content">
+                        <h4>Technology Detection</h4>
+                        <p>Detects technologies from files, languages, and README with documentation links</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🤖</div>
+                    <div class="feature-content">
+                        <h4>Multi-Agent System</h4>
+                        <p>GitHub Analyzer Agent and Architecture Image Generator Agent</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📊</div>
+                    <div class="feature-content">
+                        <h4>Visualization Tools</h4>
+                        <p>Generates architecture diagrams using Diagrams, Graphviz, and Matplotlib</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">⚡</div>
+                    <div class="feature-content">
+                        <h4>ADK Web Interface</h4>
+                        <p>Web-based interface for agent interaction and testing</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🐳</div>
+                    <div class="feature-content">
+                        <h4>Containerized Deployment</h4>
+                        <p>Docker-based deployment for consistent environments</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Agent Architecture -->
+        <div class="section">
+            <h2 class="section-title">Agent Architecture</h2>
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <h3>GitHub Analyzer Agent</h3>
+                    <ul>
+                        <li>Analyzes GitHub repositories</li>
+                        <li>Extracts repository structure</li>
+                        <li>Detects technologies used</li>
+                        <li>Generates project descriptions</li>
+                        <li>Provides technology documentation links</li>
+                    </ul>
+                </div>
+                <div class="tech-card">
+                    <h3>Architecture Image Generator Agent</h3>
+                    <ul>
+                        <li>Analyzes project architecture</li>
+                        <li>Generates architecture visualization prompts</li>
+                        <li>Creates diagram descriptions</li>
+                        <li>Works with GitHub analyzer output</li>
+                        <li>Produces image generation prompts</li>
+                    </ul>
+                </div>
+                <div class="tech-card">
+                    <h3>Workflow</h3>
+                    <ul>
+                        <li>GitHub URL input</li>
+                        <li>Repository analysis</li>
+                        <li>Description generation</li>
+                        <li>Architecture analysis</li>
+                        <li>Diagram generation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- AWS Architecture -->
+        <div class="section">
+            <h2 class="section-title">Agentic Context for Presentation AWS Architecture</h2>
+            <div class="architecture-diagram">
+                <div class="aws-architecture">
+                    <!-- User Layer -->
+                    <div class="aws-layer">
+                        <div class="aws-service">Users / Developers</div>
+                    </div>
+                    <div class="aws-arrow">↓</div>
+
+                    <!-- CDN & WAF Layer -->
+                    <div class="aws-layer">
+                        <div class="aws-service">CloudFront CDN</div>
+                        <div class="aws-service">AWS WAF</div>
+                    </div>
+                    <div class="aws-arrow">↓</div>
+
+                    <!-- API Gateway -->
+                    <div class="aws-layer">
+                        <div class="aws-service">API Gateway</div>
+                    </div>
+                    <div class="aws-arrow">↓</div>
+
+                    <!-- Compute Layer -->
+                    <div class="aws-layer">
+                        <div class="aws-service">ECS Fargate<br/>ADK Agent Service</div>
+                        <div class="aws-service">ECS Fargate<br/>ADK Agent Service</div>
+                        <div class="aws-service">ECS Fargate<br/>ADK Agent Service</div>
+                    </div>
+                    <div class="aws-arrow">↓</div>
+
+                    <!-- External Services Layer -->
+                    <div class="aws-layer">
+                        <div class="aws-service">GitHub API<br/>(External)</div>
+                        <div class="aws-service">Google AI Studio<br/>(External)</div>
+                    </div>
+                    <div class="aws-arrow">↓</div>
+
+                    <!-- Data Layer -->
+                    <div class="aws-layer">
+                        <div class="aws-service">S3<br/>(Generated Diagrams)</div>
+                        <div class="aws-service">ElastiCache<br/>(Redis Cache)</div>
+                    </div>
+                    <div class="aws-arrow">↓</div>
+
+                    <!-- Monitoring Layer -->
+                    <div class="aws-layer">
+                        <div class="aws-service">CloudWatch</div>
+                        <div class="aws-service">CloudWatch Logs</div>
+                        <div class="aws-service">X-Ray</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 2rem;">
+                <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; color: var(--dark);">AWS Services Breakdown</h3>
+                <div class="tech-grid">
+                    <div class="tech-card">
+                        <h3>Compute</h3>
+                        <ul>
+                            <li><strong>ECS Fargate:</strong> Serverless containers for ADK agents</li>
+                            <li><strong>Auto Scaling:</strong> Automatic scaling based on requests</li>
+                            <li><strong>ECR:</strong> Container image registry</li>
+                        </ul>
+                    </div>
+                    <div class="tech-card">
+                        <h3>Networking</h3>
+                        <ul>
+                            <li><strong>VPC:</strong> Isolated network environment</li>
+                            <li><strong>API Gateway:</strong> API management and routing</li>
+                            <li><strong>CloudFront:</strong> Global CDN</li>
+                            <li><strong>Route 53:</strong> DNS management</li>
+                        </ul>
+                    </div>
+                    <div class="tech-card">
+                        <h3>Storage</h3>
+                        <ul>
+                            <li><strong>S3:</strong> Generated diagrams and artifacts</li>
+                            <li><strong>ElastiCache:</strong> Redis for caching API responses</li>
+                            <li><strong>CloudFront:</strong> Static asset delivery</li>
+                        </ul>
+                    </div>
+                    <div class="tech-card">
+                        <h3>Security</h3>
+                        <ul>
+                            <li><strong>AWS WAF:</strong> Web application firewall</li>
+                            <li><strong>Secrets Manager:</strong> API keys & credentials</li>
+                            <li><strong>IAM:</strong> Role-based access control</li>
+                            <li><strong>VPC Security Groups:</strong> Network security</li>
+                        </ul>
+                    </div>
+                    <div class="tech-card">
+                        <h3>Monitoring & Logging</h3>
+                        <ul>
+                            <li><strong>CloudWatch:</strong> Metrics & monitoring</li>
+                            <li><strong>CloudWatch Logs:</strong> Application logging</li>
+                            <li><strong>X-Ray:</strong> Distributed tracing</li>
+                        </ul>
+                    </div>
+                    <div class="tech-card">
+                        <h3>External Integrations</h3>
+                        <ul>
+                            <li><strong>GitHub API:</strong> Repository analysis</li>
+                            <li><strong>Google AI Studio:</strong> Gemini model access</li>
+                            <li><strong>VPC Endpoints:</strong> Secure AWS service access</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 2rem; padding: 1.5rem; background: var(--light-gray); border-radius: 12px;">
+                <h3 style="font-size: 1.3rem; font-weight: 600; margin-bottom: 1rem; color: var(--dark);">Architecture Benefits</h3>
+                <div class="spec-grid">
+                    <div class="spec-item">
+                        <h4>Scalability</h4>
+                        <p>Auto-scaling ECS Fargate containers handle analysis requests</p>
+                    </div>
+                    <div class="spec-item">
+                        <h4>High Availability</h4>
+                        <p>Multi-AZ deployment ensures 99.99% uptime</p>
+                    </div>
+                    <div class="spec-item">
+                        <h4>Security</h4>
+                        <p>WAF, VPC isolation, and Secrets Manager protect API keys</p>
+                    </div>
+                    <div class="spec-item">
+                        <h4>Performance</h4>
+                        <p>ElastiCache reduces GitHub API calls and improves response times</p>
+                    </div>
+                    <div class="spec-item">
+                        <h4>Cost Optimization</h4>
+                        <p>Fargate serverless model pays only for usage</p>
+                    </div>
+                    <div class="spec-item">
+                        <h4>AI Integration</h4>
+                        <p>Seamless integration with Google AI services</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Deployment -->
+        <div class="section">
+            <h2 class="section-title">Deployment & Operations</h2>
+            <div class="spec-grid">
+                <div class="spec-item">
+                    <h4>Containerization</h4>
+                    <p>Docker with Python 3.10+ base image</p>
+                </div>
+                <div class="spec-item">
+                    <h4>Orchestration</h4>
+                    <p>ECS Fargate for serverless container management</p>
+                </div>
+                <div class="spec-item">
+                    <h4>ADK CLI</h4>
+                    <p>Command-line tools for development and testing</p>
+                </div>
+                <div class="spec-item">
+                    <h4>Environment Variables</h4>
+                    <p>Secrets Manager for Google API keys and GitHub tokens</p>
+                </div>
+                <div class="spec-item">
+                    <h4>Monitoring</h4>
+                    <p>CloudWatch for metrics, logs, and alarms</p>
+                </div>
+                <div class="spec-item">
+                    <h4>CI/CD</h4>
+                    <p>GitHub Actions → ECR → ECS deployment pipeline</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="section" style="text-align: center; background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));">
+            <p style="color: var(--dark); font-size: 1.1rem; margin-bottom: 1rem;">
+                <strong>🔒 Private Project</strong>
+            </p>
+            <p style="color: var(--gray); margin-bottom: 1rem;">
+                This project is private and not publicly available.
+            </p>
+            <p style="color: var(--dark);">
+                For access, inquiries, or collaboration opportunities, please contact:
+            </p>
+            <p style="margin-top: 0.5rem;">
+                <a href="mailto:beasantosdev+1@gmail.com" class="email-link">
+                    📧 beasantosdev+1@gmail.com
+                </a>
+            </p>
+            <p style="color: var(--gray); font-size: 0.9rem; margin-top: 1rem;">
+                &copy; 2024 Beatriz Santos. All rights reserved.
+            </p>
+        </div>
+    </div>
+</body>
+</html>
+

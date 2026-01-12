@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microservices Architecture Migration - Technical Presentation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --secondary: #8b5cf6;
+            --accent: #ec4899;
+            --dark: #1f2937;
+            --gray: #6b7280;
+            --light-gray: #f3f4f6;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--dark);
+            line-height: 1.6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: var(--gray);
+        }
+
+        .section {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid var(--primary);
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .tech-card {
+            background: var(--light-gray);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .tech-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.2);
+        }
+
+        .tech-card h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .tech-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .tech-card li {
+            padding: 0.5rem 0;
+            color: var(--gray);
+            display: flex;
+            align-items: center;
+        }
+
+        .tech-card li::before {
+            content: "▸";
+            color: var(--primary);
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        .spec-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .spec-item {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        .spec-item h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .spec-item p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        .architecture-diagram {
+            background: var(--light-gray);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-top: 1.5rem;
+            overflow-x: auto;
+        }
+
+        .aws-architecture {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            min-width: 800px;
+        }
+
+        .aws-layer {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            padding: 1rem;
+            background: var(--white);
+            border-radius: 8px;
+            border: 2px solid var(--primary);
+            flex-wrap: wrap;
+        }
+
+        .aws-service {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-align: center;
+            min-width: 150px;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .aws-arrow {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: start;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--light-gray);
+            border-radius: 8px;
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        .feature-content h4 {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .feature-content p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .email-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--white);
+            border-radius: 50px;
+            display: inline-block;
+            border: 2px solid var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .email-link:hover {
+            background: var(--primary);
+            color: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .section {
+                padding: 1.5rem;
+            }
+
+            .tech-grid,
+            .spec-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .aws-architecture {
+                min-width: 100%;
+            }
+
+            .aws-layer {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="../../projects.html" class="back-link">← Back to Projects</a>
+
+        <div class="header">
+            <h1>Microservices Architecture Migration</h1>
+            <p>Strategic Migration from Monolithic to Microservices Architecture</p>
+            <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(99, 102, 241, 0.1); border-radius: 10px; border-left: 4px solid var(--primary);">
+                <p style="color: var(--dark); font-weight: 500; margin-bottom: 0.5rem;">
+                    🔒 <strong>Private Project</strong>
+                </p>
+                <p style="color: var(--gray); font-size: 0.95rem;">
+                    This project is private. For access or inquiries, please contact: 
+                    <a href="mailto:beasantosdev+1@gmail.com" style="color: var(--primary); text-decoration: none; font-weight: 600; border-bottom: 2px solid var(--primary);">beasantosdev+1@gmail.com</a>
+                </p>
+            </div>
+        </div>
+
+        <!-- Technology Stack -->
+        <div class="section">
+            <h2 class="section-title">Technology Stack</h2>
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <h3>Orchestration</h3>
+                    <ul>
+                        <li>Kubernetes (EKS)</li>
+                        <li>Helm Charts</li>
+                        <li>Kustomize</li>
+                        <li>Service Mesh (Istio)</li>
+                    </ul>
+                </div>
+
+                <div class="tech-card">
+                    <h3>Infrastructure as Code</h3>
+                    <ul>
+                        <li>Terraform >= 1.0</li>
+                        <li>VPC Modules</li>
+                        <li>Security Groups</li>
+                        <li>Network ACLs</li>
+                    </ul>
+                </div>
+
+                <div class="tech-card">
+                    <h3>Service Communication</h3>
+                    <ul>
+                        <li>gRPC</li>
+                        <li>RESTful APIs</li>
+                        <li>GraphQL (Apollo Server)</li>
+                        <li>Kafka (Event Streaming)</li>
+                    </ul>
+                </div>
+
+                <div class="tech-card">
+                    <h3>Databases</h3>
+                    <ul>
+                        <li>PostgreSQL (RDS Multi-AZ)</li>
+                        <li>MongoDB</li>
+                        <li>Redis</li>
+                        <li>DynamoDB</li>
+                        <li>Elasticsearch</li>
+                    </ul>
+                </div>
+
+                <div class="tech-card">
+                    <h3>CI/CD</h3>
+                    <ul>
+                        <li>GitLab CI</li>
+                        <li>GitHub Actions</li>
+                        <li>Spinnaker</li>
+                        <li>Jenkins</li>
+                        <li>Reusable Workflows</li>
+                    </ul>
+                </div>
+
+                <div class="tech-card">
+                    <h3>Observability</h3>
+                    <ul>
+                        <li>DataDog</li>
+                        <li>Grafana</li>
+                        <li>CloudWatch</li>
+                        <li>New Relic</li>
+                    </ul>
+                </div>
+
+                <div class="tech-card">
+                    <h3>Security</h3>
+                    <ul>
+                        <li>AWS Cognito</li>
+                        <li>Azure AD (SAML/OAuth)</li>
+                        <li>Network Security Groups</li>
+                        <li>VPN Gateway</li>
+                    </ul>
+                </div>
+
+                <div class="tech-card">
+                    <h3>Containerization</h3>
+                    <ul>
+                        <li>Docker</li>
+                        <li>Multi-stage Builds</li>
+                        <li>Container Registry</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Technical Specifications -->
+        <div class="section">
+            <h2 class="section-title">Technical Specifications</h2>
+            <div class="spec-grid">
+                <div class="spec-item">
+                    <h4>Architecture Pattern</h4>
+                    <p>Microservices with Service Mesh</p>
+                </div>
+                <div class="spec-item">
+                    <h4>Orchestration</h4>
+                    <p>Kubernetes (EKS) with Helm</p>
+                </div>
+                <div class="spec-item">
+                    <h4>Infrastructure</h4>
+                    <p>Terraform for IaC</p>
+                </div>
+                <div class="spec-item">
+                    <h4>Service Communication</h4>
+                    <p>gRPC, REST, GraphQL, Kafka</p>
+                </div>
+                <div class="spec-item">
+                    <h4>Data Layer</h4>
+                    <p>Multi-database (PostgreSQL, MongoDB, DynamoDB)</p>
+                </div>
+                <div class="spec-item">
+                    <h4>Deployment</h4>
+                    <p>Spinnaker (Blue-Green, Canary)</p>
+                </div>
+                <div class="spec-item">
+                    <h4>Monitoring</h4>
+                    <p>DataDog, Grafana, CloudWatch</p>
+                </div>
+                <div class="spec-item">
+                    <h4>Cloud Platform</h4>
+                    <p>AWS EKS with Multi-AZ</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Achievements -->
+        <div class="section">
+            <h2 class="section-title">Key Achievements</h2>
+            <div class="feature-list">
+                <div class="feature-item">
+                    <div class="feature-icon">⚡</div>
+                    <div class="feature-content">
+                        <h4>Deployment Time Reduction</h4>
+                        <p>Reduced deployment time from weeks to hours</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📈</div>
+                    <div class="feature-content">
+                        <h4>System Availability</h4>
+                        <p>Improved from 99.5% to 99.95% uptime</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">👥</div>
+                    <div class="feature-content">
+                        <h4>Team Autonomy</h4>
+                        <p>Zero coordination overhead for independent deployments</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">💰</div>
+                    <div class="feature-content">
+                        <h4>Cost Reduction</h4>
+                        <p>Reduced infrastructure costs by 30%</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🔄</div>
+                    <div class="feature-content">
+                        <h4>Zero Downtime</h4>
+                        <p>Maintained zero downtime during migration</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🏗️</div>
+                    <div class="feature-content">
+                        <h4>Scalability</h4>
+                        <p>Improved system scalability by 300%</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Microservices -->
+        <div class="section">
+            <h2 class="section-title">Microservices Architecture</h2>
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <h3>API Gateway</h3>
+                    <ul>
+                        <li>GraphQL (Apollo Server)</li>
+                        <li>REST APIs</li>
+                        <li>Request routing</li>
+                        <li>Authentication</li>
+                        <li>Rate limiting</li>
+                    </ul>
+                </div>
+                <div class="tech-card">
+                    <h3>User Service</h3>
+                    <ul>
+                        <li>gRPC + REST</li>
+                        <li>PostgreSQL</li>
+                        <li>User management</li>
+                        <li>Authentication</li>
+                        <li>Profiles</li>
+                    </ul>
+                </div>
+                <div class="tech-card">
+                    <h3>Product Service</h3>
+                    <ul>
+                        <li>gRPC + REST</li>
+                        <li>MongoDB</li>
+                        <li>Product catalog</li>
+                        <li>Search</li>
+                        <li>Recommendations</li>
+                    </ul>
+                </div>
+                <div class="tech-card">
+                    <h3>Order Service</h3>
+                    <ul>
+                        <li>gRPC + Kafka</li>
+                        <li>PostgreSQL</li>
+                        <li>Order processing</li>
+                        <li>Order history</li>
+                    </ul>
+                </div>
+                <div class="tech-card">
+                    <h3>Payment Service</h3>
+                    <ul>
+                        <li>gRPC</li>
+                        <li>PostgreSQL</li>
+                        <li>Payment processing</li>
+                        <li>Transaction management</li>
+                    </ul>
+                </div>
+                <div class="tech-card">
+                    <h3>Inventory Service</h3>
+                    <ul>
+                        <li>gRPC + Kafka</li>
+                        <li>DynamoDB</li>
+                        <li>Stock management</li>
+                        <li>Inventory updates</li>
+                    </ul>
+                </div>
+                <div class="tech-card">
+                    <h3>Notification Service</h3>
+                    <ul>
+                        <li>Kafka consumer</li>
+                        <li>MongoDB</li>
+                        <li>Email, SMS, Push</li>
+                        <li>Notification delivery</li>
+                    </ul>
+                </div>
+                <div class="tech-card">
+                    <h3>Search Service</h3>
+                    <ul>
+                        <li>REST</li>
+                        <li>Elasticsearch</li>
+                        <li>Product search</li>
+                        <li>Filtering</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- AWS Architecture -->
+        <div class="section">
+            <h2 class="section-title">Microservices Architecture Migration AWS Architecture</h2>
+            <div class="architecture-diagram">
+                <div class="aws-architecture">
+                    <!-- User Layer -->
+                    <div class="aws-layer">
+                        <div class="aws-service">Users / Clients</div>
+                    </div>
+                    <div class="aws-arrow">↓</div>
+
+                    <!-- CDN & WAF Layer -->
+                    <div class="aws-layer">
+                        <div class="aws-service">CloudFront CDN</div>
+                        <div class="aws-service">AWS WAF</div>
+                    </div>
+                    <div class="aws-arrow">↓</div>
+
+                    <!-- Application Load Balancer -->
+                    <div class="aws-layer">
+                        <div class="aws-service">Application Load Balancer</div>
+                    </div>
+                    <div class="aws-arrow">↓</div>
+
+                    <!-- EKS Cluster -->
+                    <div class="aws-layer">
+                        <div class="aws-service">EKS Cluster<br/>(Kubernetes)</div>
+                    </div>
+                    <div class="aws-arrow">↓</div>
+
+                    <!-- Microservices Layer -->
+                    <div class="aws-layer">
+                        <div class="aws-service">API Gateway<br/>(GraphQL/REST)</div>
+                        <div class="aws-service">User Service</div>
+                        <div class="aws-service">Product Service</div>
+                        <div class="aws-service">Order Service</div>
+                        <div class="aws-service">Payment Service</div>
+                        <div class="aws-service">Inventory Service</div>
+                        <div class="aws-service">Notification Service</div>
+                        <div class="aws-service">Search Service</div>
+                    </div>
+                    <div class="aws-arrow">↓</div>
+
+                    <!-- Service Mesh -->
+                    <div class="aws-layer">
+                        <div class="aws-service">App Mesh<br/>(Service Discovery)</div>
+                    </div>
+                    <div class="aws-arrow">↓</div>
+
+                    <!-- Data Layer -->
+                    <div class="aws-layer">
+                        <div class="aws-service">RDS PostgreSQL<br/>(Multi-AZ)</div>
+                        <div class="aws-service">DocumentDB<br/>(MongoDB)</div>
+                        <div class="aws-service">DynamoDB</div>
+                        <div class="aws-service">Elasticsearch</div>
+                        <div class="aws-service">ElastiCache<br/>(Redis)</div>
+                    </div>
+                    <div class="aws-arrow">↓</div>
+
+                    <!-- Messaging Layer -->
+                    <div class="aws-layer">
+                        <div class="aws-service">MSK<br/>(Kafka)</div>
+                        <div class="aws-service">SQS</div>
+                        <div class="aws-service">SNS</div>
+                    </div>
+                    <div class="aws-arrow">↓</div>
+
+                    <!-- Monitoring Layer -->
+                    <div class="aws-layer">
+                        <div class="aws-service">CloudWatch</div>
+                        <div class="aws-service">X-Ray</div>
+                        <div class="aws-service">DataDog Integration</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 2rem;">
+                <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; color: var(--dark);">AWS Services Breakdown</h3>
+                <div class="tech-grid">
+                    <div class="tech-card">
+                        <h3>Compute & Orchestration</h3>
+                        <ul>
+                            <li><strong>EKS:</strong> Managed Kubernetes clusters</li>
+                            <li><strong>EC2:</strong> Worker nodes for EKS</li>
+                            <li><strong>Fargate:</strong> Serverless containers (optional)</li>
+                            <li><strong>Auto Scaling:</strong> Cluster and pod autoscaling</li>
+                        </ul>
+                    </div>
+                    <div class="tech-card">
+                        <h3>Networking</h3>
+                        <ul>
+                            <li><strong>VPC:</strong> Isolated network environment</li>
+                            <li><strong>ALB:</strong> Application Load Balancer</li>
+                            <li><strong>CloudFront:</strong> Global CDN</li>
+                            <li><strong>Route 53:</strong> DNS management</li>
+                            <li><strong>App Mesh:</strong> Service mesh for microservices</li>
+                        </ul>
+                    </div>
+                    <div class="tech-card">
+                        <h3>Databases</h3>
+                        <ul>
+                            <li><strong>RDS PostgreSQL:</strong> Multi-AZ for transactional data</li>
+                            <li><strong>DocumentDB:</strong> MongoDB-compatible</li>
+                            <li><strong>DynamoDB:</strong> High-throughput NoSQL</li>
+                            <li><strong>Elasticsearch:</strong> Search and analytics</li>
+                            <li><strong>ElastiCache:</strong> Redis for caching</li>
+                        </ul>
+                    </div>
+                    <div class="tech-card">
+                        <h3>Messaging</h3>
+                        <ul>
+                            <li><strong>MSK:</strong> Managed Kafka for event streaming</li>
+                            <li><strong>SQS:</strong> Message queuing</li>
+                            <li><strong>SNS:</strong> Event notifications</li>
+                        </ul>
+                    </div>
+                    <div class="tech-card">
+                        <h3>Security</h3>
+                        <ul>
+                            <li><strong>AWS WAF:</strong> Web application firewall</li>
+                            <li><strong>AWS Cognito:</strong> Service-to-service auth</li>
+                            <li><strong>Secrets Manager:</strong> Credential storage</li>
+                            <li><strong>IAM:</strong> Role-based access control</li>
+                            <li><strong>VPN Gateway:</strong> Secure access</li>
+                        </ul>
+                    </div>
+                    <div class="tech-card">
+                        <h3>Monitoring & Observability</h3>
+                        <ul>
+                            <li><strong>CloudWatch:</strong> Metrics & monitoring</li>
+                            <li><strong>X-Ray:</strong> Distributed tracing</li>
+                            <li><strong>DataDog:</strong> APM and monitoring</li>
+                            <li><strong>Grafana:</strong> Dashboards</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 2rem; padding: 1.5rem; background: var(--light-gray); border-radius: 12px;">
+                <h3 style="font-size: 1.3rem; font-weight: 600; margin-bottom: 1rem; color: var(--dark);">Architecture Benefits</h3>
+                <div class="spec-grid">
+                    <div class="spec-item">
+                        <h4>Independent Scaling</h4>
+                        <p>Each microservice scales independently based on demand</p>
+                    </div>
+                    <div class="spec-item">
+                        <h4>Fault Isolation</h4>
+                        <p>Service failures don't cascade to other services</p>
+                    </div>
+                    <div class="spec-item">
+                        <h4>Technology Flexibility</h4>
+                        <p>Services can use different technologies and databases</p>
+                    </div>
+                    <div class="spec-item">
+                        <h4>Team Autonomy</h4>
+                        <p>Teams can develop and deploy services independently</p>
+                    </div>
+                    <div class="spec-item">
+                        <h4>High Availability</h4>
+                        <p>Multi-AZ deployment ensures 99.95% uptime</p>
+                    </div>
+                    <div class="spec-item">
+                        <h4>Cost Optimization</h4>
+                        <p>Scale only what's needed, when it's needed</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Deployment -->
+        <div class="section">
+            <h2 class="section-title">Deployment & Operations</h2>
+            <div class="spec-grid">
+                <div class="spec-item">
+                    <h4>Containerization</h4>
+                    <p>Docker containers for all services</p>
+                </div>
+                <div class="spec-item">
+                    <h4>Orchestration</h4>
+                    <p>Kubernetes (EKS) with Helm charts</p>
+                </div>
+                <div class="spec-item">
+                    <h4>Infrastructure as Code</h4>
+                    <p>Terraform for VPC, security, and networking</p>
+                </div>
+                <div class="spec-item">
+                    <h4>CI/CD</h4>
+                    <p>GitHub Actions, GitLab CI, Spinnaker</p>
+                </div>
+                <div class="spec-item">
+                    <h4>Deployment Strategies</h4>
+                    <p>Blue-green and canary deployments</p>
+                </div>
+                <div class="spec-item">
+                    <h4>Monitoring</h4>
+                    <p>DataDog, Grafana, CloudWatch for comprehensive observability</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="section" style="text-align: center; background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));">
+            <p style="color: var(--dark); font-size: 1.1rem; margin-bottom: 1rem;">
+                <strong>🔒 Private Project</strong>
+            </p>
+            <p style="color: var(--gray); margin-bottom: 1rem;">
+                This project is private and not publicly available.
+            </p>
+            <p style="color: var(--dark);">
+                For access, inquiries, or collaboration opportunities, please contact:
+            </p>
+            <p style="margin-top: 0.5rem;">
+                <a href="mailto:beasantosdev+1@gmail.com" class="email-link">
+                    📧 beasantosdev+1@gmail.com
+                </a>
+            </p>
+            <p style="color: var(--gray); font-size: 0.9rem; margin-top: 1rem;">
+                &copy; 2024 Beatriz Santos. All rights reserved.
+            </p>
+        </div>
+    </div>
+</body>
+</html>
+

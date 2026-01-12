@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beatriz Santos - Projects Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.75rem 1.5rem;
+            border: 2px solid var(--primary-color);
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+        .back-link:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4);
+        }
+        .project-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+        .project-link:hover {
+            color: var(--accent-color);
+            transform: translateX(5px);
+        }
+        .project-link::after {
+            content: '→';
+            transition: transform 0.3s ease;
+        }
+        .project-link:hover::after {
+            transform: translateX(5px);
+        }
+        .aws-architecture-section {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 2px solid rgba(99, 102, 241, 0.2);
+        }
+        .aws-architecture-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .aws-architecture-diagram {
+            background: rgba(99, 102, 241, 0.05);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+        .aws-architecture-flow {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            min-width: 600px;
+        }
+        .aws-layer {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            border: 2px solid var(--primary-color);
+            flex-wrap: wrap;
+        }
+        .aws-service {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 0.75rem 1.25rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-align: center;
+            min-width: 120px;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+        }
+        .aws-arrow {
+            text-align: center;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        .aws-services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .aws-service-card {
+            background: rgba(99, 102, 241, 0.05);
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 3px solid var(--primary-color);
+        }
+        .aws-service-card h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        .aws-service-card ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .aws-service-card li {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            padding: 0.25rem 0;
+            padding-left: 1rem;
+            position: relative;
+        }
+        .aws-service-card li::before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+        }
+        @media (max-width: 768px) {
+            .aws-architecture-flow {
+                min-width: 100%;
+            }
+            .aws-layer {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-animation"></div>
+    
+    <div class="container">
+        <!-- Back to Portfolio Link -->
+        <a href="index.html" class="back-link">← Back to Portfolio</a>
+
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="name">My Projects</h1>
+                <p class="title">A comprehensive collection of my work</p>
+            </div>
+        </header>
+
+        <!-- Projects Grid -->
+        <section class="projects-section">
+            <h2 class="section-title">All Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-icon">📄</div>
+                    <h3 class="project-title">Contract Revision Platform</h3>
+                    <p class="project-description">
+                        A comprehensive platform for managing and revising contracts with advanced document processing capabilities.
+                    </p>
+                    <a href="projects/contract-revision-platform/presentation.html" class="project-link">Technical Presentation →</a>
+                    <div class="project-tags">
+                        <span class="tag">Next.js</span>
+                        <span class="tag">TypeScript</span>
+                        <span class="tag">Document Processing</span>
+                    </div>
+
+                    <!-- AWS Architecture Section -->
+                    <div class="aws-architecture-section">
+                        <div class="aws-architecture-title">
+                            ☁️ Contract Revision Platform AWS Architecture
+                        </div>
+                        <div class="aws-architecture-diagram">
+                            <div class="aws-architecture-flow">
+                                <!-- User Layer -->
+                                <div class="aws-layer">
+                                    <div class="aws-service">Users / Clients</div>
+                                </div>
+                                <div class="aws-arrow">↓</div>
+
+                                <!-- CDN & WAF Layer -->
+                                <div class="aws-layer">
+                                    <div class="aws-service">CloudFront CDN</div>
+                                    <div class="aws-service">AWS WAF</div>
+                                </div>
+                                <div class="aws-arrow">↓</div>
+
+                                <!-- Application Load Balancer -->
+                                <div class="aws-layer">
+                                    <div class="aws-service">Application Load Balancer</div>
+                                </div>
+                                <div class="aws-arrow">↓</div>
+
+                                <!-- Compute Layer -->
+                                <div class="aws-layer">
+                                    <div class="aws-service">ECS Fargate Container 1</div>
+                                    <div class="aws-service">ECS Fargate Container 2</div>
+                                    <div class="aws-service">ECS Fargate Container N</div>
+                                </div>
+                                <div class="aws-arrow">↓</div>
+
+                                <!-- Data Layer -->
+                                <div class="aws-layer">
+                                    <div class="aws-service">DocumentDB (MongoDB)</div>
+                                    <div class="aws-service">ElastiCache (Redis)</div>
+                                </div>
+                                <div class="aws-arrow">↓</div>
+
+                                <!-- Storage Layer -->
+                                <div class="aws-layer">
+                                    <div class="aws-service">S3 (File Storage)</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="aws-services-grid">
+                            <div class="aws-service-card">
+                                <h4>Compute</h4>
+                                <ul>
+                                    <li>ECS Fargate</li>
+                                    <li>Auto Scaling</li>
+                                    <li>ECR</li>
+                                </ul>
+                            </div>
+                            <div class="aws-service-card">
+                                <h4>Networking</h4>
+                                <ul>
+                                    <li>VPC</li>
+                                    <li>ALB</li>
+                                    <li>CloudFront</li>
+                                    <li>Route 53</li>
+                                </ul>
+                            </div>
+                            <div class="aws-service-card">
+                                <h4>Database</h4>
+                                <ul>
+                                    <li>DocumentDB</li>
+                                    <li>ElastiCache</li>
+                                    <li>Automated Backups</li>
+                                </ul>
+                            </div>
+                            <div class="aws-service-card">
+                                <h4>Storage</h4>
+                                <ul>
+                                    <li>S3</li>
+                                    <li>CloudFront</li>
+                                </ul>
+                            </div>
+                            <div class="aws-service-card">
+                                <h4>Security</h4>
+                                <ul>
+                                    <li>AWS WAF</li>
+                                    <li>Secrets Manager</li>
+                                    <li>IAM</li>
+                                    <li>Security Groups</li>
+                                </ul>
+                            </div>
+                            <div class="aws-service-card">
+                                <h4>Monitoring</h4>
+                                <ul>
+                                    <li>CloudWatch</li>
+                                    <li>CloudWatch Logs</li>
+                                    <li>X-Ray</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-icon">🚚</div>
+                    <h3 class="project-title">Movister Parallel Porter (Dev)</h3>
+                    <p class="project-description">
+                        Development environment for the Movister Parallel Porter logistics and shipping platform.
+                    </p>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 1rem; font-style: italic;">Project repository not yet available</p>
+                    <div class="project-tags">
+                        <span class="tag">Development</span>
+                        <span class="tag">Logistics</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-icon">📊</div>
+                    <h3 class="project-title">Client Project Dashboard</h3>
+                    <p class="project-description">
+                        A comprehensive dashboard for managing client projects with real-time updates and analytics.
+                    </p>
+                    <a href="projects/client-project-dashboard/presentation.html" class="project-link">Technical Presentation →</a>
+                    <div class="project-tags">
+                        <span class="tag">Next.js</span>
+                        <span class="tag">Dashboard</span>
+                        <span class="tag">Analytics</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-icon">🤖</div>
+                    <h3 class="project-title">GDG AgentAI</h3>
+                    <p class="project-description">
+                        AI-powered agent system developed for Google Developer Groups, featuring intelligent automation and context awareness.
+                    </p>
+                    <a href="projects/gdg-agent-ai/presentation.html" class="project-link">Technical Presentation →</a>
+                    <div class="project-tags">
+                        <span class="tag">AI</span>
+                        <span class="tag">Python</span>
+                        <span class="tag">Automation</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-icon">👨‍🍳</div>
+                    <h3 class="project-title">SousChef Web App</h3>
+                    <p class="project-description">
+                        A modern web application for recipe management, meal planning, and culinary inspiration.
+                    </p>
+                    <a href="projects/souschef-web-app/presentation.html" class="project-link">Technical Presentation →</a>
+                    <div class="project-tags">
+                        <span class="tag">Next.js</span>
+                        <span class="tag">gRPC</span>
+                        <span class="tag">Web App</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-icon">📦</div>
+                    <h3 class="project-title">MovisterParallel Porter</h3>
+                    <p class="project-description">
+                        Main production application for the Movister Parallel Porter logistics platform with full microservices architecture.
+                    </p>
+                    <a href="projects/movister-parallel-porter/presentation.html" class="project-link">Technical Presentation →</a>
+                    <div class="project-tags">
+                        <span class="tag">Microservices</span>
+                        <span class="tag">Next.js</span>
+                        <span class="tag">Production</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-icon">🏗️</div>
+                    <h3 class="project-title">Microservices Architecture Migration</h3>
+                    <p class="project-description">
+                        Comprehensive migration project from monolithic to microservices architecture with detailed documentation and implementation.
+                    </p>
+                    <a href="projects/microservices-architecture-migration/presentation.html" class="project-link">Technical Presentation →</a>
+                    <div class="project-tags">
+                        <span class="tag">Architecture</span>
+                        <span class="tag">Migration</span>
+                        <span class="tag">Documentation</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-icon">⏰</div>
+                    <h3 class="project-title">Timesheet Reminder</h3>
+                    <p class="project-description">
+                        A simple yet effective tool for tracking and reminding about timesheet submissions.
+                    </p>
+                    <a href="timesheet-reminder/" class="project-link" target="_blank">View Project</a>
+                    <div class="project-tags">
+                        <span class="tag">Productivity</span>
+                        <span class="tag">Reminder</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-icon">🧠</div>
+                    <h3 class="project-title">Agentic Context for Presentation</h3>
+                    <p class="project-description">
+                        AI agent system designed to analyze and provide context for presentations, featuring GitHub integration and architecture analysis.
+                    </p>
+                    <a href="projects/agentic-context-for-presentation/presentation.html" class="project-link">Technical Presentation →</a>
+                    <div class="project-tags">
+                        <span class="tag">AI Agent</span>
+                        <span class="tag">Python</span>
+                        <span class="tag">GitHub</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-icon">📚</div>
+                    <h3 class="project-title">Studies Tracking Frontend</h3>
+                    <p class="project-description">
+                        A comprehensive system for tracking studies, learning progress, and educational resources. 
+                        Built with React Native for mobile-first experience.
+                    </p>
+                    <a href="studies-tracking-front/" class="project-link" target="_blank">View Project</a>
+                    <div class="project-tags">
+                        <span class="tag">React Native</span>
+                        <span class="tag">Education</span>
+                        <span class="tag">Tracking</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-icon">💅</div>
+                    <h3 class="project-title">Manicure Booking App</h3>
+                    <p class="project-description">
+                        A modern booking application for scheduling manicure appointments with a beautiful, user-friendly interface.
+                    </p>
+                    <a href="projects/manicure-booking-app/presentation.html" class="project-link">Technical Presentation →</a>
+                    <div class="project-tags">
+                        <span class="tag">Vite</span>
+                        <span class="tag">Booking</span>
+                        <span class="tag">SaaS</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-icon">👤</div>
+                    <h3 class="project-title">Movister Parallel Porter - User Service</h3>
+                    <p class="project-description">
+                        Microservice dedicated to user management for the Movister Parallel Porter platform.
+                    </p>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 1rem; font-style: italic;">Project repository not yet available</p>
+                    <div class="project-tags">
+                        <span class="tag">Microservice</span>
+                        <span class="tag">User Management</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-icon">🛍️</div>
+                    <h3 class="project-title">Movister Parallel Porter - Product Service</h3>
+                    <p class="project-description">
+                        Microservice handling product catalog and inventory management for the Movister platform.
+                    </p>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 1rem; font-style: italic;">Project repository not yet available</p>
+                    <div class="project-tags">
+                        <span class="tag">Microservice</span>
+                        <span class="tag">Products</span>
+                        <span class="tag">Inventory</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-icon">💳</div>
+                    <h3 class="project-title">Movister Parallel Porter - Payment Service</h3>
+                    <p class="project-description">
+                        Secure payment processing microservice with support for multiple payment methods and gateways.
+                    </p>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 1rem; font-style: italic;">Project repository not yet available</p>
+                    <div class="project-tags">
+                        <span class="tag">Microservice</span>
+                        <span class="tag">Payments</span>
+                        <span class="tag">Security</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-icon">📋</div>
+                    <h3 class="project-title">Movister Parallel Porter - Order Service</h3>
+                    <p class="project-description">
+                        Order management microservice handling order processing, tracking, and fulfillment workflows.
+                    </p>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 1rem; font-style: italic;">Project repository not yet available</p>
+                    <div class="project-tags">
+                        <span class="tag">Microservice</span>
+                        <span class="tag">Orders</span>
+                        <span class="tag">Workflow</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-icon">📖</div>
+                    <h3 class="project-title">MUD Pattern Study Cases</h3>
+                    <p class="project-description">
+                        Comprehensive study cases and documentation on MUD (Multi-User Dungeon) patterns and architecture.
+                    </p>
+                    <a href="mud-pattern-study-cases/" class="project-link" target="_blank">View Project</a>
+                    <div class="project-tags">
+                        <span class="tag">Patterns</span>
+                        <span class="tag">Architecture</span>
+                        <span class="tag">Documentation</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-icon">🔙</div>
+                    <h3 class="project-title">Studies Tracking Backend</h3>
+                    <p class="project-description">
+                        Backend service for the studies tracking application, providing APIs and data management. 
+                        Integrated within the studies-tracking-front repository.
+                    </p>
+                    <a href="studies-tracking-front/" class="project-link" target="_blank">View Project</a>
+                    <div class="project-tags">
+                        <span class="tag">Backend</span>
+                        <span class="tag">API</span>
+                        <span class="tag">Database</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-icon">📱</div>
+                    <h3 class="project-title">Studies Tracking Frontend</h3>
+                    <p class="project-description">
+                        Frontend application for studies tracking built with React Native, providing a mobile-first experience.
+                    </p>
+                    <a href="studies-tracking-front/" class="project-link" target="_blank">View Project</a>
+                    <div class="project-tags">
+                        <span class="tag">React Native</span>
+                        <span class="tag">Mobile</span>
+                        <span class="tag">Frontend</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-icon">🔗</div>
+                    <h3 class="project-title">Client Project Service GitHub</h3>
+                    <p class="project-description">
+                        Service for integrating GitHub repositories with client project management, enabling seamless workflow automation.
+                    </p>
+                    <a href="projects/client-project-service-github/presentation.html" class="project-link">Technical Presentation →</a>
+                    <div class="project-tags">
+                        <span class="tag">Go</span>
+                        <span class="tag">GitHub</span>
+                        <span class="tag">Integration</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2024 Beatriz Santos. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

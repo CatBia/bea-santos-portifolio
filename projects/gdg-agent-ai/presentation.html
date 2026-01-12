@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GDG Agent AI - Technical Presentation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #4285f4;
+            --secondary: #34a853;
+            --accent: #ea4335;
+            --dark: #1f2937;
+            --gray: #6b7280;
+            --light-gray: #f3f4f6;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--dark);
+            line-height: 1.6;
+            background: linear-gradient(135deg, #4285f4 0%, #34a853 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: var(--gray);
+        }
+
+        .section {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid var(--primary);
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .tech-card {
+            background: var(--light-gray);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .tech-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(66, 133, 244, 0.2);
+        }
+
+        .tech-card h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .tech-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .tech-card li {
+            padding: 0.5rem 0;
+            color: var(--gray);
+            display: flex;
+            align-items: center;
+        }
+
+        .tech-card li::before {
+            content: "▸";
+            color: var(--primary);
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        .spec-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .spec-item {
+            background: linear-gradient(135deg, rgba(66, 133, 244, 0.1), rgba(52, 168, 83, 0.1));
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(66, 133, 244, 0.2);
+        }
+
+        .spec-item h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .spec-item p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        .architecture-diagram {
+            background: var(--light-gray);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-top: 1.5rem;
+            overflow-x: auto;
+        }
+
+        .gcp-architecture {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            min-width: 800px;
+        }
+
+        .gcp-layer {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            padding: 1rem;
+            background: var(--white);
+            border-radius: 8px;
+            border: 2px solid var(--primary);
+            flex-wrap: wrap;
+        }
+
+        .gcp-service {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-align: center;
+            min-width: 150px;
+            box-shadow: 0 4px 15px rgba(66, 133, 244, 0.3);
+        }
+
+        .gcp-arrow {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: start;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--light-gray);
+            border-radius: 8px;
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        .feature-content h4 {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .feature-content p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .email-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--white);
+            border-radius: 50px;
+            display: inline-block;
+            border: 2px solid var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .email-link:hover {
+            background: var(--primary);
+            color: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(66, 133, 244, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .section {
+                padding: 1.5rem;
+            }
+
+            .tech-grid,
+            .spec-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gcp-architecture {
+                min-width: 100%;
+            }
+
+            .gcp-layer {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="../../projects.html" class="back-link">← Back to Projects</a>
+
+        <div class="header">
+            <h1>GDG Agent AI</h1>
+            <p>AI-Powered Agent System for Google Developer Groups</p>
+            <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(66, 133, 244, 0.1); border-radius: 10px; border-left: 4px solid var(--primary);">
+                <p style="color: var(--dark); font-weight: 500; margin-bottom: 0.5rem;">
+                    🔒 <strong>Private Project</strong>
+                </p>
+                <p style="color: var(--gray); font-size: 0.95rem;">
+                    This project is private. For access or inquiries, please contact: 
+                    <a href="mailto:beasantosdev+1@gmail.com" style="color: var(--primary); text-decoration: none; font-weight: 600; border-bottom: 2px solid var(--primary);">beasantosdev+1@gmail.com</a>
+                </p>
+            </div>
+        </div>
+
+        <!-- Technology Stack -->
+        <div class="section">
+            <h2 class="section-title">Technology Stack</h2>
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <h3>AI Framework</h3>
+                    <ul>
+                        <li>Google ADK (Agent Development Kit)</li>
+                        <li>Gemini 2.5 Flash Model</li>
+                        <li>Model Context Protocol (MCP)</li>
+                        <li>Function Tools</li>
+                        <li>Multi-Agent Systems</li>
+                    </ul>
+                </div>
+
+                <div class="tech-card">
+                    <h3>Programming Language</h3>
+                    <ul>
+                        <li>Python 3.12</li>
+                        <li>Object-Oriented Design</li>
+                        <li>Async/Await Support</li>
+                    </ul>
+                </div>
+
+                <div class="tech-card">
+                    <h3>Cloud Platform</h3>
+                    <ul>
+                        <li>Google Cloud Platform (GCP)</li>
+                        <li>Cloud Run (Serverless)</li>
+                        <li>Google AI Studio</li>
+                        <li>Cloud Functions</li>
+                    </ul>
+                </div>
+
+                <div class="tech-card">
+                    <h3>DevOps & Infrastructure</h3>
+                    <ul>
+                        <li>Docker</li>
+                        <li>Docker Compose</li>
+                        <li>ADK CLI Tools</li>
+                        <li>Cloud Run Deployment</li>
+                    </ul>
+                </div>
+
+                <div class="tech-card">
+                    <h3>Communication Protocols</h3>
+                    <ul>
+                        <li>HTTP/HTTPS</li>
+                        <li>Streamable HTTP</li>
+                        <li>JSON Format</li>
+                        <li>TOON (Token-Oriented Object Notation)</li>
+                    </ul>
+                </div>
+
+                <div class="tech-card">
+                    <h3>Agent Capabilities</h3>
+                    <ul>
+                        <li>Context Awareness</li>
+                        <li>Tool Usage</li>
+                        <li>Reasoning Loops</li>
+                        <li>Multi-Agent Collaboration</li>
+                        <li>RAG (Retrieval-Augmented Generation)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Technical Specifications -->
+        <div class="section">
+            <h2 class="section-title">Technical Specifications</h2>
+            <div class="spec-grid">
+                <div class="spec-item">
+                    <h4>Architecture Pattern</h4>
+                    <p>AI Agent System with Multi-Agent Collaboration</p>
+                </div>
+                <div class="spec-item">
+                    <h4>AI Model</h4>
+                    <p>Google Gemini 2.5 Flash</p>
+                </div>
+                <div class="spec-item">
+                    <h4>Framework</h4>
+                    <p>Google ADK (Agent Development Kit)</p>
+                </div>
+                <div class="spec-item">
+                    <h4>Deployment</h4>
+                    <p>Cloud Run (Serverless Containers)</p>
+                </div>
+                <div class="spec-item">
+                    <h4>Language</h4>
+                    <p>Python 3.12</p>
+                </div>
+                <div class="spec-item">
+                    <h4>Containerization</h4>
+                    <p>Docker with multi-stage builds</p>
+                </div>
+                <div class="spec-item">
+                    <h4>Protocol</h4>
+                    <p>Model Context Protocol (MCP)</p>
+                </div>
+                <div class="spec-item">
+                    <h4>Data Format</h4>
+                    <p>JSON & TOON (Token-Oriented)</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Features -->
+        <div class="section">
+            <h2 class="section-title">Key Features</h2>
+            <div class="feature-list">
+                <div class="feature-item">
+                    <div class="feature-icon">🤖</div>
+                    <div class="feature-content">
+                        <h4>Intelligent AI Agents</h4>
+                        <p>Sophisticated AI agents built with Google ADK, capable of reasoning and tool usage</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🔄</div>
+                    <div class="feature-content">
+                        <h4>Multi-Agent Systems</h4>
+                        <p>Support for multiple agents working together with reasoning loops and collaboration</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🧠</div>
+                    <div class="feature-content">
+                        <h4>Context Awareness</h4>
+                        <p>Agents maintain context and use data effectively for intelligent responses</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🛠️</div>
+                    <div class="feature-content">
+                        <h4>Tool Integration</h4>
+                        <p>Function tools and MCP toolsets for extended capabilities</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📚</div>
+                    <div class="feature-content">
+                        <h4>RAG Support</h4>
+                        <p>Retrieval-Augmented Generation for enhanced knowledge access</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">☁️</div>
+                    <div class="feature-content">
+                        <h4>Cloud-Native</h4>
+                        <p>Built for Google Cloud Platform with serverless deployment</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">⚡</div>
+                    <div class="feature-content">
+                        <h4>Streamable HTTP</h4>
+                        <p>Support for HTTP streaming and efficient data transfer</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🔧</div>
+                    <div class="feature-content">
+                        <h4>ADK CLI Tools</h4>
+                        <p>Command-line tools for development, testing, and deployment</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Agent Architecture -->
+        <div class="section">
+            <h2 class="section-title">Agent Architecture</h2>
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <h3>Root Agent</h3>
+                    <ul>
+                        <li>Primary agent for user interactions</li>
+                        <li>Gemini 2.5 Flash model</li>
+                        <li>Context-aware responses</li>
+                        <li>Tool orchestration</li>
+                    </ul>
+                </div>
+                <div class="tech-card">
+                    <h3>MCP Toolsets</h3>
+                    <ul>
+                        <li>Model Context Protocol</li>
+                        <li>HTTP connection tools</li>
+                        <li>Streamable connections</li>
+                        <li>Function tools integration</li>
+                    </ul>
+                </div>
+                <div class="tech-card">
+                    <h3>Agent Evolution</h3>
+                    <ul>
+                        <li>LLM + Prompt</li>
+                        <li>LLM + Fine-tuning</li>
+                        <li>LLM + RAG</li>
+                        <li>LLM + MCP</li>
+                        <li>Many LLM + Many RAG + Reasoning</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Google Cloud Architecture -->
+        <div class="section">
+            <h2 class="section-title">GDG Agent AI Google Cloud Architecture</h2>
+            <div class="architecture-diagram">
+                <div class="gcp-architecture">
+                    <!-- User Layer -->
+                    <div class="gcp-layer">
+                        <div class="gcp-service">Users / Developers</div>
+                    </div>
+                    <div class="gcp-arrow">↓</div>
+
+                    <!-- CDN & Security Layer -->
+                    <div class="gcp-layer">
+                        <div class="gcp-service">Cloud CDN</div>
+                        <div class="gcp-service">Cloud Armor</div>
+                    </div>
+                    <div class="gcp-arrow">↓</div>
+
+                    <!-- API Gateway -->
+                    <div class="gcp-layer">
+                        <div class="gcp-service">API Gateway</div>
+                    </div>
+                    <div class="gcp-arrow">↓</div>
+
+                    <!-- Compute Layer -->
+                    <div class="gcp-layer">
+                        <div class="gcp-service">Cloud Run<br/>Agent Service</div>
+                        <div class="gcp-service">Cloud Run<br/>Agent Service</div>
+                        <div class="gcp-service">Cloud Run<br/>Agent Service</div>
+                    </div>
+                    <div class="gcp-arrow">↓</div>
+
+                    <!-- AI Services Layer -->
+                    <div class="gcp-layer">
+                        <div class="gcp-service">Vertex AI<br/>(Gemini 2.5 Flash)</div>
+                        <div class="gcp-service">AI Studio</div>
+                    </div>
+                    <div class="gcp-arrow">↓</div>
+
+                    <!-- Data Layer -->
+                    <div class="gcp-layer">
+                        <div class="gcp-service">Cloud Storage<br/>(RAG Data)</div>
+                        <div class="gcp-service">Firestore<br/>(Context Storage)</div>
+                        <div class="gcp-service">Memorystore<br/>(Redis Cache)</div>
+                    </div>
+                    <div class="gcp-arrow">↓</div>
+
+                    <!-- Monitoring Layer -->
+                    <div class="gcp-layer">
+                        <div class="gcp-service">Cloud Logging</div>
+                        <div class="gcp-service">Cloud Monitoring</div>
+                        <div class="gcp-service">Cloud Trace</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 2rem;">
+                <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; color: var(--dark);">Google Cloud Services Breakdown</h3>
+                <div class="tech-grid">
+                    <div class="tech-card">
+                        <h3>Compute</h3>
+                        <ul>
+                            <li><strong>Cloud Run:</strong> Serverless container hosting for agents</li>
+                            <li><strong>Auto Scaling:</strong> Automatic scaling based on requests</li>
+                            <li><strong>Cloud Functions:</strong> Event-driven serverless functions</li>
+                        </ul>
+                    </div>
+                    <div class="tech-card">
+                        <h3>AI & Machine Learning</h3>
+                        <ul>
+                            <li><strong>Vertex AI:</strong> Gemini 2.5 Flash model hosting</li>
+                            <li><strong>AI Studio:</strong> Model development and testing</li>
+                            <li><strong>ADK Integration:</strong> Agent Development Kit support</li>
+                        </ul>
+                    </div>
+                    <div class="tech-card">
+                        <h3>Networking</h3>
+                        <ul>
+                            <li><strong>VPC:</strong> Virtual Private Cloud</li>
+                            <li><strong>Cloud CDN:</strong> Content delivery network</li>
+                            <li><strong>Cloud Armor:</strong> DDoS protection & WAF</li>
+                            <li><strong>API Gateway:</strong> API management</li>
+                        </ul>
+                    </div>
+                    <div class="tech-card">
+                        <h3>Storage & Database</h3>
+                        <ul>
+                            <li><strong>Cloud Storage:</strong> RAG data & file storage</li>
+                            <li><strong>Firestore:</strong> NoSQL for context storage</li>
+                            <li><strong>Memorystore:</strong> Redis for caching</li>
+                        </ul>
+                    </div>
+                    <div class="tech-card">
+                        <h3>Security</h3>
+                        <ul>
+                            <li><strong>Cloud Armor:</strong> Web application firewall</li>
+                            <li><strong>Secret Manager:</strong> API keys & credentials</li>
+                            <li><strong>IAM:</strong> Identity and access management</li>
+                            <li><strong>VPC Security:</strong> Network isolation</li>
+                        </ul>
+                    </div>
+                    <div class="tech-card">
+                        <h3>Monitoring & Logging</h3>
+                        <ul>
+                            <li><strong>Cloud Monitoring:</strong> Metrics & dashboards</li>
+                            <li><strong>Cloud Logging:</strong> Centralized logging</li>
+                            <li><strong>Cloud Trace:</strong> Distributed tracing</li>
+                            <li><strong>Error Reporting:</strong> Error tracking</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 2rem; padding: 1.5rem; background: var(--light-gray); border-radius: 12px;">
+                <h3 style="font-size: 1.3rem; font-weight: 600; margin-bottom: 1rem; color: var(--dark);">Architecture Benefits</h3>
+                <div class="spec-grid">
+                    <div class="spec-item">
+                        <h4>Serverless Scalability</h4>
+                        <p>Cloud Run automatically scales based on demand</p>
+                    </div>
+                    <div class="spec-item">
+                        <h4>Cost Efficiency</h4>
+                        <p>Pay only for actual usage with serverless model</p>
+                    </div>
+                    <div class="spec-item">
+                        <h4>High Availability</h4>
+                        <p>Multi-region deployment ensures 99.95% uptime</p>
+                    </div>
+                    <div class="spec-item">
+                        <h4>AI Integration</h4>
+                        <p>Native integration with Google's Gemini models</p>
+                    </div>
+                    <div class="spec-item">
+                        <h4>Security</h4>
+                        <p>Cloud Armor, IAM, and Secret Manager protect data</p>
+                    </div>
+                    <div class="spec-item">
+                        <h4>Observability</h4>
+                        <p>Comprehensive monitoring and logging capabilities</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Deployment -->
+        <div class="section">
+            <h2 class="section-title">Deployment & Operations</h2>
+            <div class="spec-grid">
+                <div class="spec-item">
+                    <h4>Containerization</h4>
+                    <p>Docker containers with Python 3.12 base image</p>
+                </div>
+                <div class="spec-item">
+                    <h4>Orchestration</h4>
+                    <p>Cloud Run for serverless container management</p>
+                </div>
+                <div class="spec-item">
+                    <h4>ADK CLI</h4>
+                    <p>Command-line tools for deployment: `adk deploy cloud_run`</p>
+                </div>
+                <div class="spec-item">
+                    <h4>Environment Variables</h4>
+                    <p>Secret Manager for secure configuration</p>
+                </div>
+                <div class="spec-item">
+                    <h4>Monitoring</h4>
+                    <p>Cloud Monitoring for metrics, logs, and alerts</p>
+                </div>
+                <div class="spec-item">
+                    <h4>CI/CD</h4>
+                    <p>Cloud Build for automated deployments</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="section" style="text-align: center; background: linear-gradient(135deg, rgba(66, 133, 244, 0.1), rgba(52, 168, 83, 0.1));">
+            <p style="color: var(--dark); font-size: 1.1rem; margin-bottom: 1rem;">
+                <strong>🔒 Private Project</strong>
+            </p>
+            <p style="color: var(--gray); margin-bottom: 1rem;">
+                This project is private and not publicly available.
+            </p>
+            <p style="color: var(--dark);">
+                For access, inquiries, or collaboration opportunities, please contact:
+            </p>
+            <p style="margin-top: 0.5rem;">
+                <a href="mailto:beasantosdev+1@gmail.com" class="email-link">
+                    📧 beasantosdev+1@gmail.com
+                </a>
+            </p>
+            <p style="color: var(--gray); font-size: 0.9rem; margin-top: 1rem;">
+                &copy; 2024 Beatriz Santos. All rights reserved.
+            </p>
+        </div>
+    </div>
+</body>
+</html>
+
